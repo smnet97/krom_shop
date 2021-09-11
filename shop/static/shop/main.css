@@ -1,4 +1,8 @@
-HEAD
+@media (min-width: 1440px) {
+  .container, .container-sm, .container-md, .container-lg, .container-xl {
+    max-width: 1280px;
+  }
+}
 h1,
 .h1 {
   font-size: 62px !important;
@@ -72,6 +76,10 @@ h5,
   background-repeat: no-repeat;
 }
 
+.shop .col-lg-3 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 .shop .product {
   box-shadow: 0 10px 25px 0 #0000001A;
 }
@@ -99,13 +107,13 @@ h5,
   margin-bottom: 30px;
   cursor: pointer;
 }
-.shop input[type=radio][id=green]:checked ~ .tile:not(.green) {
+.shop input[type=radio][id=green]:checked ~ .row .col-lg-3:not(.green) {
   display: none;
 }
-.shop input[type=radio][id=red]:checked ~ .tile:not(.red) {
+.shop input[type=radio][id=red]:checked ~ .row .col-lg-3:not(.red) {
   display: none;
 }
-.shop input[type=radio][id=blue]:checked ~ .tile:not(.blue) {
+.shop input[type=radio][id=blue]:checked ~ .row .col-lg-3:not(.blue) {
   display: none;
 }
 .shop .tile {
@@ -116,26 +124,5 @@ h5,
   margin: 0.5%;
   padding: 0.5%;
 }
-.shop .green {
-  background: #66dd99;
-}
-.shop .blue {
-  background: #6666ff;
-}
-.shop .red {
-  background: #ff4466;
-}
 
 /*# sourceMappingURL=main.css.map */
-
-/*detail css*/
-.font-50{
-    font-size: 50px;
-}
-
-.item-price {
-    font-size: 1.125rem;
-    font-family: "Muli", sans-serif;
-    color: #000;
-}
-
