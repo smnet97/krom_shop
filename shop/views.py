@@ -6,3 +6,6 @@ def home(request):
 
 def detail(request):
     return render(request, 'shop/detail.html')
+
+def shop(request):
+    return render(request, 'shop/shop.html')

@@ -1,0 +1,70 @@
+{% load static %}
+
+{% block content %}
+
+        <div class="header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand text-center d-lg-none d-block" href="{% url 'shop:home' %}">LOGO</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse w-lg-100" id="navbarSupportedContent">
+                    <div class=" d-lg-none d-flex align-items-center w-100 justify-content-end">
+                        <a class="nav-link" href="tel:+998 (99) 813-08-88">+998 (99) 813-08-88</a>
+                        <a class="nav-link" href=""><img src="{% static 'shop/img/user.png' %}" width="25px" alt="" /></a>
+                        <a class="nav-link" href=""><img src="https://img.icons8.com/ios/25/000000/exit.png" /></a>
+                        <a class="nav-link" href=""><img src="{% static 'shop/img/cart.png' %}" width="25px" alt="" /></a>
+                    </div>
+                    <ul class="navbar-nav mr-0 text-center">
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="{% url 'shop:shop' %}" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                МАГАЗИН
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">ОКРАШИВАНИЕ</a>
+                                <a class="dropdown-item" href="#">ТЕХНИЧЕСКИЕ ПРОДУКТЫ</a>
+                                <a class="dropdown-item" href="#">ВОСТАНАВЛИВАЮЩАЯ ЛИНИЯ</a>
+                                <a class="dropdown-item" href="#">СТРАЙЛИНГИ УКЛАДКА</a>
+                                <a class="dropdown-item" href="#">УХОД</a>
+
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">АКАДЕМИЯ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">САЛОН</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">ГАЛЕРЕЯ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">О НАС</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">КОНТАКТЫ</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <a class="navbar-brand w-100 text-center d-none d-lg-block" href="{% url 'shop:home' %}">LOGO</a>
+
+
+                <div class=" d-none d-lg-flex align-items-center w-100 justify-content-end">
+                    <a class="nav-link" href="tel:+998 (99) 813-08-88">+998 (99) 813-08-88</a>
+                    <a class="nav-link" href=""><img src="{% static 'shop/img/user.png' %}" width="25px" alt="" /></a>
+                    <a class="nav-link" href=""><img src="https://img.icons8.com/ios/25/000000/exit.png" /></a>
+                    <a class="nav-link" href=""><img src="{% static 'shop/img/cart.png' %}" width="25px" alt="" /></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+{% endblock %}

@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import home, detail
+from .views import home, detail, shop
 
 app_name = 'shop'
 
 urlpatterns = [
     path('', home, name='home'),
-    path('detail/', detail, name='detail')
+    path('detail/', detail, name='detail'),
+    path('shop/', shop, name='shop'),
+
 ]
