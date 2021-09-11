@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    home
+    <div class="container-fluid my-5">
+        <div class="row">
+            {% if request.user.is_authenticated %}
+                {{ user.phone }}
+                <a class="btn btn-danger" href="{% url 'user:logout' %}">
+                    logout
+                </a>
+            {% else %}
+                <h2>Home page</h2>
+                <a class="btn btn-success" href="{% url 'user:login' %}">
+                    login
+                </a>
+            {% endif %}
+
+        </div>
+    </div>
+
 {% endblock content %}
