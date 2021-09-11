@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="shop">
+
+
+
+    <section class="products mt-5 pt-5">
+        <div class="container mx-auto row row-cols-4">
+            <div class="col mt-3 qq">
+                <div class="card product text-center h-100" style="width: 18rem;">
+                    <img src="img/prod.jpg" class="card-img-top img-fluid" alt="...">
+                    <div class="card-body">
+                        <p class="card-text h5">Nourish Conditioner
+                        <h5><b style="color: rgb(197, 99, 99);">20 999 сумм</b></h5>
+                        </p>
+                    </div>
+
+                    <div class=" d-none hover justify-content-center pr-2 flex-column position-absolute" style="right: 0px;
+                         height: 100%;">
+                        <div class="carts">
+                            <img src="img/cart.png" class="pt-3 cart" style="width: 25px; " alt="" srcset="">
+                            <img src="img/carted.png" class="pt-3 d-none cart" style="width: 25px; " alt="" srcset="">
+                        </div>
+                        <div href="" class="likes">
+                            <img src="img/like.png" class="pt-3 like" style="width: 25px;  " alt="" srcset="">
+                            <img src="img/liked.png" class="pt-3 d-none like" style="width: 25px;  " alt="" srcset="">
+                        </div>
+
+
+
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn pt-3" data-toggle="modal" data-target="#staticBackdrop">
+                            <img src="img/full_half.png" class="img-fluid" style="width: 25px;" alt="" srcset="">
+
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Understood</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <div class="container">
+            <input type="radio" id="blue" name="color" />
+            <label for="blue">BLUE</label>
+            <input type="radio" id="red" name="color" />
+            <label for="red">RED</label>
+            <input type="radio" id="green" name="color" />
+            <label for="green">GREEN</label>
+            <input type="radio" id="reset" name="color" />
+            <label for="reset">RESET</label>
+
+            <div class="tile blue">1</div>
+            <div class="tile red">2</div>
+            <div class="tile blue">3</div>
+            <div class="tile green">4</div>
+            <div class="tile blue">5</div>
+            <div class="tile red">6</div>
+            <div class="tile red">7</div>
+            <div class="tile green">8</div>
+            <div class="tile blue">9</div>
+            <div class="tile green">10</div>
+            <div class="tile red">11</div>
+            <div class="tile green">12</div>
+            <div class="tile blue">13</div>
+            <div class="tile blue">14</div>
+            <div class="tile green">15</div>
+            <div class="tile red">16</div>
+        </div>
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock content %}
