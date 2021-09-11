@@ -8,17 +8,20 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'shop/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'shop/main.css' %}">
-    {% block css %}{% endblock css%}
+    {% block css %}{% endblock css %}
 </head>
 <body>
+    {% include 'components/navbar.html' %}
 
-        {% block content %}{% endblock content %}
+<div class="" style="margin-top: 60px">
+    {% block content %}{% endblock content %}
+</div>
 
 
-    <script src="{% static 'shop/jquery-3.6.0.js' %}"></script>
-    <script src="{% static 'shop/bootstrap/js/bootstrap.bundle.js' %}"></script>
-    <script src="{% static 'shop/bootstrap/js/bootstrap.js' %}"></script>
-    <script src="{% static 'shop/main.js' %}"></script>
-    {% block js %}{% endblock js %}
+<script src="{% static 'shop/jquery-3.6.0.js' %}"></script>
+<script src="{% static 'shop/bootstrap/js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'shop/bootstrap/js/bootstrap.js' %}"></script>
+<script src="{% static 'shop/main.js' %}"></script>
+{% block js %}{% endblock js %}
 </body>
 </html>

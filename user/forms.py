@@ -6,14 +6,14 @@ from krom.validators import PhoneValidator
 
 
 class LoginForm(forms.Form):
-    phone = forms.CharField(max_length=14, required=True,
+    username = forms.CharField(max_length=14, required=True,
                             widget=forms.TextInput(attrs={'placeholder': '998971234567'}), label=False)
     password = forms.CharField(max_length=50, widget=forms.PasswordInput, required=True,
                                validators=[MinLengthValidator(6)], label=False)
 
 
 class RegistrationForm(forms.Form):
-    phone = forms.CharField(max_length=14, required=True, validators=[PhoneValidator()],
+    username = forms.CharField(max_length=14, required=True, validators=[PhoneValidator()],
                             widget=forms.TextInput(attrs={'placeholder': '998971234567'}), label=False)
     password = forms.CharField(max_length=50, widget=forms.PasswordInput, required=True,
                                validators=[MinLengthValidator(6)], label=False)
@@ -27,7 +27,7 @@ class RegistrationForm(forms.Form):
         return self.cleaned_data['phone']
 
     def clean_confirm(self):
-        if self.cleaned_data['password'] != self.cleaned_data['comfirm']:
+        if self.cleaned_data['password'] != self.cleaned_data['confirm']:
             raise ValidationError('Пароли не совпадают!')
 
         return self.cleaned_data['confirm']
