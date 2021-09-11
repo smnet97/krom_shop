@@ -1,3 +1,4 @@
+HEAD
 h1,
 .h1 {
   font-size: 62px !important;
@@ -126,3 +127,15 @@ h5,
 }
 
 /*# sourceMappingURL=main.css.map */
+
+/*detail css*/
+.font-50{
+    font-size: 50px;
+}
+
+.item-price {
+    font-size: 1.125rem;
+    font-family: "Muli", sans-serif;
+    color: #000;
+}
+

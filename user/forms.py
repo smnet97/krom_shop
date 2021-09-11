@@ -6,7 +6,8 @@ from krom.validators import PhoneValidator
 
 
 class LoginForm(forms.Form):
-    phone = forms.CharField(max_length=14, required=True, label=False)
+    phone = forms.CharField(max_length=14, required=True,
+                            widget=forms.TextInput(attrs={'placeholder': '998971234567'}), label=False)
     password = forms.CharField(max_length=50, widget=forms.PasswordInput, required=True,
                                validators=[MinLengthValidator(6)], label=False)
 
