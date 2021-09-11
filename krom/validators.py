@@ -19,7 +19,7 @@ class PhoneValidator:
         except:
             return False
 
-        if len(value) != 12 or not value.startwith("998"):
+        if len(value) != 12 or not value.startswith("998"):
             return False
 
         return True
