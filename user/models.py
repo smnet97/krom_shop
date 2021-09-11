@@ -41,7 +41,7 @@ class UserModel(AbstractUser):
     objects = UserManager()
     password = models.CharField(max_length=100, help_text="Пожалуйста, укажите свой пароль")
     phone = models.CharField(max_length=15, unique=True,
-                             validators=[PhoneValidator()], help_text="Пожалуйста, укажите свой пароль")
+                             validators=[PhoneValidator], help_text="Пожалуйста, укажите свой пароль")
 
     USERNAME_FIELD = "phone"
     username_validator = PhoneValidator()
