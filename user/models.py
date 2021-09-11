@@ -38,10 +38,10 @@ class UserManager(BaseUserManager):
 class UserModel(AbstractUser):
     objects = UserManager()
     password = models.CharField(max_length=100, help_text="Пожалуйста, укажите свой пароль")
-    phone = models.CharField(max_length=15, unique=True,
+    username = models.CharField(max_length=15, unique=True,
                              validators=[PhoneValidator()], help_text="Пожалуйста, укажите свой пароль")
 
-    USERNAME_FIELD = "phone"
+    # USERNAME_FIELD = "phone"
     username_validator = PhoneValidator()
 
     class Meta:
@@ -50,3 +50,19 @@ class UserModel(AbstractUser):
 
     def __str__(self):
         return self.phone
+
+
+class SmsCode(models.Model):
+    phone = models.CharField(max_length=16, db_index=True)
+    ip = models.GenericIPAddressField(db_index=True)
+    code = models.CharField(max_length=10)
+    expire_at = models.DateTimeField(db_index=True)
+
+    class Meta:
+        index_together = []
+
+
+class SmsAttempt(models.Model):
+    phone = models.CharField(max_length=16, db_index=True)
+    counter = models.IntegerField(default=0)
+    last_attempt_at = models.DateTimeField(db_index=True)
