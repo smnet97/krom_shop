@@ -35,8 +35,6 @@ class UserManager(BaseUserManager):
         return self.__create_user(*args, **kwargs)
 
 
-
-
 class UserModel(AbstractUser):
     objects = UserManager()
     password = models.CharField(max_length=100, help_text="Пожалуйста, укажите свой пароль")
