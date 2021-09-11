@@ -20,19 +20,9 @@
                         <a class="nav-link" href=""><img src="{% static 'shop/img/cart.png' %}" width="25px" alt="" /></a>
                     </div>
                     <ul class="navbar-nav mr-0 text-center">
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" href="{% url 'shop:shop' %}" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                МАГАЗИН
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">ОКРАШИВАНИЕ</a>
-                                <a class="dropdown-item" href="#">ТЕХНИЧЕСКИЕ ПРОДУКТЫ</a>
-                                <a class="dropdown-item" href="#">ВОСТАНАВЛИВАЮЩАЯ ЛИНИЯ</a>
-                                <a class="dropdown-item" href="#">СТРАЙЛИНГИ УКЛАДКА</a>
-                                <a class="dropdown-item" href="#">УХОД</a>
 
-                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'shop:shop' %}">МАГАЗИН</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">АКАДЕМИЯ</a>

@@ -99,6 +99,10 @@ h5,
 
 
 .shop {
+  .col-lg-3{
+    padding-left: 8px ;
+    padding-right: 8px ;
+  }
   .product {
     box-shadow: 0 10px 25px 0 #0000001A;
     .card {
@@ -151,13 +155,4 @@ h5,
     margin: 0.5%;
     padding: 0.5%;
   }
-
-
-
-  .modal-ku {
-    width: 1050px;
-    margin: auto;
-  }
-
-
 }

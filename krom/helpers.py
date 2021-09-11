@@ -1,4 +1,4 @@
-import requests
+# import requests
 import time
 from django.conf import settings
 import random

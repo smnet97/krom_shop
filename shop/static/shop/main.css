@@ -76,6 +76,10 @@ h5,
   background-repeat: no-repeat;
 }
 
+.shop .col-lg-3 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 .shop .product {
   box-shadow: 0 10px 25px 0 #0000001A;
 }
@@ -119,10 +123,6 @@ h5,
   transition: all 1s;
   margin: 0.5%;
   padding: 0.5%;
-}
-.shop .modal-ku {
-  width: 1050px;
-  margin: auto;
 }
 
 /*# sourceMappingURL=main.css.map */
