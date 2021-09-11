@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'user:sign_up' %}" method="post">
+                        {% csrf_token %}
+                        <label class="mb-4">Регистрация</label>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="text-02">Телефон <span style="color:#ff0000">*</span></label>
+                            {{ form.username|as_crispy_field }}
+                        </div>
+                        <div class="form-group m-0 p-0 d-flex justify-between " id="texts">
+                            <div class="col-6 p-0"><label for="exampleInputPassword1" class="text-02">Пароль <span style="color:#ff0000">*</span></label>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.password|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 p-0"><label for="exampleInputPassword2" class="text-02">Подтвердить Пароль <span style="color:#ff0000">*</span></label>
+                            </div>
+                            {{ form.confirm|as_crispy_field }}
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+							<a href="{% url 'user:login' %}" class="d-block d-md-none">Войти</a>
+						</div>
+                        <button type="submit" class="btn btn-danger px-4 px-sm-5 py-2 rounded-15 mr-2">
+                            Создать аккаунт
+                        </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
