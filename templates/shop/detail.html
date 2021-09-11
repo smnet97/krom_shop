@@ -6,12 +6,15 @@
             <div class="small text-secondary">Home > Shop > Product</div>
 
             <div class="row">
-                <div><img src=""></div>
-                <div>
-                    <div class="name"></div>
-                    <div class="cost"></div>
-                    <div class="description"></div>
-                    <div class="count"></div>
+                <div class="col-6"><img width="500px"
+                                        src="https://vendor.webuildthemes.com/assets/images/demo/product-8.jpg"></div>
+                <div class="col-6">
+                    <div class="name font-50">Hajo Backpack</div>
+                    <div class="cost item-price">$99</div>
+                    <div class="description">This minimalist backpack is suitable for any occasion.
+                        Whether on the road by bike, shopping or in the nightlife.
+                    </div>
+                    <div class="count"><input type="number" min="1" max="10" value="1"></div>
                     <div class="addToCard"></div>
                 </div>
             </div>
@@ -19,29 +22,5 @@
     </div>
 
 
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock content %}

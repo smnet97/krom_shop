@@ -1,0 +1,10 @@
+/*detail css*/
+.font-50{
+    font-size: 50px;
+}
+
+.item-price {
+    font-size: 1.125rem;
+    font-family: "Muli", sans-serif;
+    color: #000;
+}
