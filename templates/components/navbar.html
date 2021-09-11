@@ -1,3 +1,4 @@
+{% load static %}
 
 {% block content %}
 
@@ -14,8 +15,9 @@
                 <div class="collapse navbar-collapse w-lg-100" id="navbarSupportedContent">
                     <div class=" d-lg-none d-flex align-items-center w-100 justify-content-end">
                         <a class="nav-link" href="tel:+998 (99) 813-08-88">+998 (99) 813-08-88</a>
-                        <a class="nav-link" href=""><img src="img/user.png" width="30px" alt="" /></a>
-                        <a class="nav-link" href=""><img src="img/cart.png" width="30px" alt="" /></a>
+                        <a class="nav-link" href=""><img src="{% static 'shop/img/user.png' %}" width="25px" alt="" /></a>
+                        <a class="nav-link" href=""><img src="https://img.icons8.com/ios/25/000000/exit.png" /></a>
+                        <a class="nav-link" href=""><img src="{% static 'shop/img/cart.png' %}" width="25px" alt="" /></a>
                     </div>
                     <ul class="navbar-nav mr-0 text-center">
                         <li class="nav-item dropdown active">
@@ -56,9 +58,9 @@
 
                 <div class=" d-none d-lg-flex align-items-center w-100 justify-content-end">
                     <a class="nav-link" href="tel:+998 (99) 813-08-88">+998 (99) 813-08-88</a>
-                    <a class="nav-link" href=""><img src="img/user.png" width="25px" alt="" /></a>
+                    <a class="nav-link" href=""><img src="{% static 'shop/img/user.png' %}" width="25px" alt="" /></a>
                     <a class="nav-link" href=""><img src="https://img.icons8.com/ios/25/000000/exit.png" /></a>
-                    <a class="nav-link" href=""><img src="img/cart.png" width="25px" alt="" /></a>
+                    <a class="nav-link" href=""><img src="{% static 'shop/img/cart.png' %}" width="25px" alt="" /></a>
                 </div>
             </div>
         </nav>
