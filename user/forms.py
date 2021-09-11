@@ -37,3 +37,9 @@ class ForgotPassword(forms.Form):
     phone = forms.CharField(max_length=16, label=False,
                             widget=forms.TextInput(attrs=({"class": "rounded-15", 'placeholder': '998971234567'})),
                             validators=[PhoneValidator()], required=True)
+
+
+class GetCodeForm(forms.Form):
+    code = forms.IntegerField(max_value=6, label=False,
+                              widget=forms.TextInput(attrs=({"class": "rounded-15", 'placeholder': 'Введите код',
+                                                             'id': "code"})), required=True)
