@@ -218,7 +218,105 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-3 mt-3 red">
+                    <div class="col-lg-3 mt-3 green">
+                        <div class="card product text-center h-100">
+                            <img src="{% static 'shop/img/prod.jpg' %}" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <p class="card-text h5">Nourish Conditioner
+                                <h5><b style="color: rgb(197, 99, 99);">20 999 сумм</b></h5>
+                                </p>
+                            </div>
+
+                            <div class=" d-none hover justify-content-center pr-2 flex-column position-absolute" style="right: 0px;
+                         height: 100%;">
+                                <div class="carts">
+                                    <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cart" style="width: 25px; "
+                                         alt="" srcset="">
+                                    <img src="{% static 'shop/img/carted.png' %}" class="pt-3 d-none cart"
+                                         style="width: 25px; " alt="" srcset="">
+                                </div>
+                                <div href="" class="likes">
+                                    <img src="{% static 'shop/img/like.png' %}" class="pt-3 like" style="width: 25px;  "
+                                         alt="" srcset="">
+                                    <img src="{% static 'shop/img/liked.png' %}" class="pt-3 d-none like"
+                                         style="width: 25px;  " alt="" srcset="">
+                                </div>
+
+
+                                <!-- Button trigger modal -->
+
+                                <button type="button" class="btn pt-3 bg-transparent p-0" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                    <img src="{% static 'shop/img/full_half.png' %}" class="img-fluid"
+                                         style="width: 25px;"
+                                         alt="" srcset="">
+                                </button>
+
+
+                            </div>
+
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade  " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog mx-auto position-absolute p-4"
+                                 style="width: 70vw;  left: 15%; top: 10% ">
+                                <div class="modal-content mx-auto " style="width: 75vw; border-radius: 10px">
+                                    <div class="modal-header mx-auto " style="width: 100%; border: none">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="row p-3">
+                                        <div class="col-lg-6">
+                                            <img class="img-fluid" src="{% static 'shop/img/prod.jpg' %}" alt="">
+                                        </div>
+                                        <div class="col-lg-6 d-flex flex-column">
+                                            <h3><b>Nourish Conditioner</b></h3>
+                                            <h4 style=" color: rgb(197, 99, 99)">20 999 сумм</h4>
+                                            <h6 style="color: green">В наличии</h6>
+                                            <h6 style="color: red">Нет наличии</h6>
+                                            <h6 style="">Категория: Покраска</h6>
+                                            <p style="color: silver">Описание </p>
+                                            <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque
+                                                dignissimos, enim excepturi explicabo hic, illum iure molestias nostrum
+                                                numquam possimus quaerat sit, tenetur ullam voluptas! Doloremque facere
+                                                ipsam tempore.</h6>
+                                            <br>
+
+                                            <div class="d-flex align-items-center">
+                                                <input type="number" class="form-control text-center " value="1"
+                                                       style="width: 70px">
+                                                <div class="carts pl-5">
+                                                    <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                                         alt=""><span> в карзину </span>
+                                                    <img src="{% static 'shop/img/cart.png' %}" class=" cart"
+                                                         style="width: 25px; "
+                                                         alt="" srcset="">
+                                                    <img src="{% static 'shop/img/carted.png' %}" class=" d-none cart"
+                                                         style="width: 25px; " alt="" srcset="">
+                                                </div>
+                                                <div href="" class="likes pl-5">
+                                                    <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                                         alt=""><span> в избранное </span>
+                                                    <img src="{% static 'shop/img/like.png' %}" class=" like"
+                                                         style="width: 25px;  "
+                                                         alt="" srcset="">
+                                                    <img src="{% static 'shop/img/liked.png' %}" class=" d-none like"
+                                                         style="width: 25px;  " alt="" srcset="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 mt-3 green">
                         <div class="card product text-center h-100">
                             <img src="{% static 'shop/img/prod.jpg' %}" class="card-img-top img-fluid" alt="...">
                             <div class="card-body">
@@ -414,106 +512,6 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-3 mt-3 red">
-                        <div class="card product text-center h-100">
-                            <img src="{% static 'shop/img/prod.jpg' %}" class="card-img-top img-fluid" alt="...">
-                            <div class="card-body">
-                                <p class="card-text h5">Nourish Conditioner
-                                <h5><b style="color: rgb(197, 99, 99);">20 999 сумм</b></h5>
-                                </p>
-                            </div>
-
-                            <div class=" d-none hover justify-content-center pr-2 flex-column position-absolute" style="right: 0px;
-                         height: 100%;">
-                                <div class="carts">
-                                    <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cart" style="width: 25px; "
-                                         alt="" srcset="">
-                                    <img src="{% static 'shop/img/carted.png' %}" class="pt-3 d-none cart"
-                                         style="width: 25px; " alt="" srcset="">
-                                </div>
-                                <div href="" class="likes">
-                                    <img src="{% static 'shop/img/like.png' %}" class="pt-3 like" style="width: 25px;  "
-                                         alt="" srcset="">
-                                    <img src="{% static 'shop/img/liked.png' %}" class="pt-3 d-none like"
-                                         style="width: 25px;  " alt="" srcset="">
-                                </div>
-
-
-                                <!-- Button trigger modal -->
-
-                                <button type="button" class="btn pt-3 bg-transparent p-0" data-toggle="modal"
-                                        data-target="#exampleModal">
-                                    <img src="{% static 'shop/img/full_half.png' %}" class="img-fluid"
-                                         style="width: 25px;"
-                                         alt="" srcset="">
-                                </button>
-
-
-                            </div>
-
-                        </div>
-                        <!-- Modal -->
-                        <div class="modal fade  " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog mx-auto position-absolute p-4"
-                                 style="width: 70vw;  left: 15%; top: 10% ">
-                                <div class="modal-content mx-auto " style="width: 75vw; border-radius: 10px">
-                                    <div class="modal-header mx-auto " style="width: 100%; border: none">
-                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="row p-3">
-                                        <div class="col-lg-6">
-                                            <img class="img-fluid" src="{% static 'shop/img/prod.jpg' %}" alt="">
-                                        </div>
-                                        <div class="col-lg-6 d-flex flex-column">
-                                            <h3><b>Nourish Conditioner</b></h3>
-                                            <h4 style=" color: rgb(197, 99, 99)">20 999 сумм</h4>
-                                            <h6 style="color: green">В наличии</h6>
-                                            <h6 style="color: red">Нет наличии</h6>
-                                            <h6 style="">Категория: Покраска</h6>
-                                            <p style="color: silver">Описание </p>
-                                            <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque
-                                                dignissimos, enim excepturi explicabo hic, illum iure molestias nostrum
-                                                numquam possimus quaerat sit, tenetur ullam voluptas! Doloremque facere
-                                                ipsam tempore.</h6>
-                                            <br>
-
-                                            <div class="d-flex align-items-center">
-                                                <input type="number" class="form-control text-center " value="1"
-                                                       style="width: 70px">
-                                                <div class="carts pl-5">
-                                                    <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
-                                                         alt=""><span> в карзину </span>
-                                                    <img src="{% static 'shop/img/cart.png' %}" class=" cart"
-                                                         style="width: 25px; "
-                                                         alt="" srcset="">
-                                                    <img src="{% static 'shop/img/carted.png' %}" class=" d-none cart"
-                                                         style="width: 25px; " alt="" srcset="">
-                                                </div>
-                                                <div href="" class="likes pl-5">
-                                                    <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
-                                                         alt=""><span> в избранное </span>
-                                                    <img src="{% static 'shop/img/like.png' %}" class=" like"
-                                                         style="width: 25px;  "
-                                                         alt="" srcset="">
-                                                    <img src="{% static 'shop/img/liked.png' %}" class=" d-none like"
-                                                         style="width: 25px;  " alt="" srcset="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
                 </div>
             </div>
 
