@@ -2,6 +2,9 @@
 import time
 from django.conf import settings
 import random
+
+from django.contrib.sites import requests
+
 from user.models import SmsCode, SmsAttempt
 from datetime import datetime, timedelta
 from django.core.exceptions import SuspiciousOperation
