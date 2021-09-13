@@ -122,10 +122,10 @@ h5,
   }
 
   label {
-    width: 23%;
     float: left;
     text-align: center;
     background: #ffffff;
+    border-radius: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     color: #222222;
     padding: 0.5%;
@@ -134,25 +134,4 @@ h5,
     cursor: pointer;
   }
 
-
-  input[type="radio"][id="green"]:checked ~ .row .col-lg-3:not(.green) {
-    display: none;
-  }
-
-  input[type="radio"][id="red"]:checked ~ .row .col-lg-3:not(.red) {
-    display: none;
-  }
-
-  input[type="radio"][id="blue"]:checked ~ .row .col-lg-3:not(.blue) {
-    display: none;
-  }
-
-  .tile {
-    width: 23%;
-    height: 100px;
-    float: left;
-    transition: all 1s;
-    margin: 0.5%;
-    padding: 0.5%;
-  }
 }
