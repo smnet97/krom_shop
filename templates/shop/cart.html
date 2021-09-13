@@ -4,9 +4,62 @@
 {% block content %}
     <div class="cart">
 
+        <div class="container position-relative">
+            <div class="row sticky-top" style="top: 0">
+                <div class="col-5">
+                    <h5>Продукт</h5>
+                </div>
+                <div class="col-2">
+                    <h6>Цена</h6>
+                </div>
+                <div class="col-2">
+                    <h6>Качество</h6>
+                </div>
+                <div class="col-2">
+                    <h6>Всего</h6>
+                </div>
+                <br>
+            </div>
 
+            {% for prod in product %}
+                <div class="row pt-5">
+                    <div class="col-5 ">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="{{ prod.image.url }}" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-8 d-flex flex-column justify-content-center">
+                                <h6>{{ prod.category.name }}</h6>
+                                <h5>{{ prod.name }}</h5>
 
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="col-2 d-flex flex-column justify-content-center">
+                        <h6>{{ prod.price }}</h6>
+                    </div>
+                    <div class="col-2 d-flex flex-column justify-content-center">
+                        <input type="number" id="{{ prod.category.slug }}{{ prod.id }}" class="form-control text-center " value="1"
+                               min="1" max="{{ prod.in_stock }}"
+                               style="width: 70px">
+
+                    </div>
+                    <div class="col-2 d-flex flex-column justify-content-center">
+                        <h6>
+                            <input type="text" id="{{ prod.category.slug }}total{{ prod.id }}" value="{{ prod.price }}" disabled style="border: none; background: none;">
+                            <script>
+                              /////////////////////////////////////////////
+                            </script>
+                        </h6>
+                    </div>
+                <div class="col-1 d-flex flex-column justify-content-center">
+                    <button type="submit" class="btn bg-danger">x</button>
+                </div>
+                </div>
+            {% endfor %}
+
+        </div>
 
     </div>
 
