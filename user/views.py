@@ -8,6 +8,7 @@ from .forms import LoginForm, RegistrationForm, GetCodeForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from krom.helpers import send_sms_code, validate_sms_code
+from django.contrib.auth.hashers import make_password
 
 
 def user_login(request):
@@ -63,9 +64,10 @@ class UserRegistration(View):
                 # print(user.username)
                 # user.save()
                 messages.success(request, "Вы успешно зарегистрировались.")
-                send_sms_code(request, data['username'])
+                phone = data['username']
+                send_sms_code(request, phone)
                 request.session["recovery"] = {
-                    "phone": data['username'],
+                    "phone": phone,
                     "password": data['password']
                 }
                 get_code_form = GetCodeForm()
@@ -88,19 +90,22 @@ class UserRegistration(View):
 def code_confirmation(request):
     request.title = "Код подтверждения"
 
-    data = request.session.get("recovery")
+    data = request.session["recovery"]
     print(data)
     if request.method != "POST" or data['phone'] is None:
         return redirect("user:sign_up")
 
     code = request.POST.get("code")
-
-    if data['phone'] is None or not validate_sms_code(data["phone"], code):
+    print(code)
+    #
+    if data['phone'] is None:  #or not validate_sms_code(data["phone"], code)
         return False
     print(data)
-    user = UserModel.objects.get(username=data["phone"])
-    user.set_password(data["password"])
-    print(user)
-    user.save()
+    user = UserModel.objects.create(username=data["phone"], password=make_password(data["password"]))
+    # user.set_password(data["password"])
+    # print(user)
+    # user.save()
+    if user is not None:
+        return redirect("shop:home")
 
-    return redirect("shop:home")
+    return redirect("user:sign_up")

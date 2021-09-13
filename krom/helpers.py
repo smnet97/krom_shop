@@ -1,9 +1,9 @@
-# import requests
+import requests
 import time
 from django.conf import settings
 import random
 
-from django.contrib.sites import requests
+# from django.contrib.sites import requests
 
 from user.models import SmsCode, SmsAttempt
 from datetime import datetime, timedelta
