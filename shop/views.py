@@ -1,11 +1,15 @@
 from django.shortcuts import render
+from shop.models import CategoryModel,ProductModel
 
 def home(request):
-    return render(request, 'shop/home.html')
+    cotegory = CategoryModel.objects.all()
+    return render(request, 'shop/home.html' , {'cotegory': cotegory})
 
 
 def detail(request):
     return render(request, 'shop/detail.html')
 
 def shop(request):
-    return render(request, 'shop/shop.html')
+    cotegory = CategoryModel.objects.all()
+    product = ProductModel.objects.all()
+    return render(request, 'shop/shop.html' , {'cotegory': cotegory, 'product': product})
