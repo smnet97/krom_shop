@@ -106,6 +106,7 @@ def code_confirmation(request):
     # print(user)
     # user.save()
     if user is not None:
+        login(request, user)
         return redirect("shop:home")
 
     return redirect("user:sign_up")
