@@ -1,11 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.decorators.http import require_POST
+
 from .models import UserModel
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, GetCodeForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from krom.helpers import send_sms_code
+from krom.helpers import send_sms_code, validate_sms_code
+from django.contrib.auth.hashers import make_password
 
 
 def user_login(request):
@@ -55,14 +58,23 @@ class UserRegistration(View):
             data = form.cleaned_data
             del data['confirm']
             if not UserModel.objects.filter(username=data['username']).exists():
-                user = UserModel(**data)
-                user.set_password(user.password)
+                # user = UserModel(**data)
+                # user.set_password(user.password)
                 # print('*************')
                 # print(user.username)
-                user.save()
+                # user.save()
                 messages.success(request, "Вы успешно зарегистрировались.")
-                send_sms_code(request, data['username'])
-                return redirect('user:login')
+                phone = data['username']
+                send_sms_code(request, phone)
+                request.session["recovery"] = {
+                    "phone": phone,
+                    "password": data['password']
+                }
+                get_code_form = GetCodeForm()
+                return render(request, "users/confirmation.html", {
+                    "form": get_code_form,
+                    "request.title": "Отправить код"
+                })
             else:
                 form.add_error('username', "Этот номер телефона зарегистрирован!")
                 return render(request, 'users/sign_up.html', {
@@ -74,6 +86,23 @@ class UserRegistration(View):
         })
 
 
+@require_POST
+def code_confirmation(request):
+    request.title = "Код подтверждения"
 
+    data = request.session["recovery"]
+    if request.method != "POST" or data['phone'] is None:
+        return redirect("user:sign_up")
 
+    code = request.POST.get("code")
+    if data['phone'] is None or not validate_sms_code(data["phone"], code):
+        return False
+    user = UserModel.objects.create(username=data["phone"], password=make_password(data["password"]))
+    # user.set_password(data["password"])
+    # print(user)
+    # user.save()
+    if user is not None:
+        login(request, user)
+        return redirect("shop:home")
 
+    return redirect("user:sign_up")

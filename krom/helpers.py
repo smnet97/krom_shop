@@ -1,7 +1,10 @@
-# import requests
+import requests
 import time
 from django.conf import settings
 import random
+
+# from django.contrib.sites import requests
+
 from user.models import SmsCode, SmsAttempt
 from datetime import datetime, timedelta
 from django.core.exceptions import SuspiciousOperation
@@ -24,7 +27,7 @@ def send_sms_code(request, phone):
         raise SuspiciousOperation("Over limit")
 
     phone_count = SmsCode.objects.filter(phone=phone).count()
-    if phone_count > 5:
+    if phone_count > 50:
         raise SuspiciousOperation("Over limit")
 
     code = sms_code()

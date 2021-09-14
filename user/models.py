@@ -6,13 +6,13 @@ from krom.validators import PhoneValidator
 
 class UserManager(BaseUserManager):
 
-    def __create_user(self, phone, password, **kwargs):
-        phone = PhoneValidator.clean(phone)
+    def __create_user(self, username, password, **kwargs):
+        username = PhoneValidator.clean(username)
         validator = PhoneValidator()
-        validator(phone)
+        validator(username)
 
         user = UserModel(**kwargs)
-        user.phone = phone
+        user.username = username
         user.set_password(password)
         user.save()
 
@@ -39,7 +39,7 @@ class UserModel(AbstractUser):
     objects = UserManager()
     password = models.CharField(max_length=100, help_text="Пожалуйста, укажите свой пароль")
     username = models.CharField(max_length=15, unique=True,
-                             validators=[PhoneValidator], help_text="Пожалуйста, укажите свой пароль")
+                             validators=[PhoneValidator()], help_text="Пожалуйста, укажите свой пароль")
 
     # USERNAME_FIELD = "phone"
     username_validator = PhoneValidator()
