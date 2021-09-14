@@ -2,22 +2,25 @@
 
 {% block content %}
 
-        <div class="header fixed-top">
+    <div class="header fixed-top">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand text-center d-lg-none d-block" href="{% url 'shop:home' %}">LOGO</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse w-lg-100" id="navbarSupportedContent">
                     <div class=" d-lg-none d-flex align-items-center w-100 justify-content-end">
                         <a class="nav-link" href="tel:+998 (99) 813-08-88">+998 (99) 813-08-88</a>
-                        <a class="nav-link" href=""><img src="{% static 'shop/img/user.png' %}" width="25px" alt="" /></a>
-                        <a class="nav-link" href=""><img src="https://img.icons8.com/ios/25/000000/exit.png" /></a>
-                        <a class="nav-link" href=""><img src="{% static 'shop/img/cart.png' %}" width="25px" alt="" /></a>
+                        <a class="nav-link" href=""><img src="{% static 'shop/img/user.png' %}" width="25px"
+                                                         alt=""/></a>
+                        <a class="nav-link" href=""><img src="https://img.icons8.com/ios/25/000000/exit.png"/></a>
+                        <a class="nav-link" href=""><img src="{% static 'shop/img/cart.png' %}" width="25px"
+                                                         alt=""/></a>
                     </div>
                     <ul class="navbar-nav mr-0 text-center">
 
@@ -48,9 +51,18 @@
 
                 <div class=" d-none d-lg-flex align-items-center w-100 justify-content-end">
                     <a class="nav-link" href="tel:+998 (99) 813-08-88">+998 (99) 813-08-88</a>
-                    <a class="nav-link" href=""><img src="{% static 'shop/img/user.png' %}" width="25px" alt="" /></a>
-                    <a class="nav-link" href=""><img src="https://img.icons8.com/ios/25/000000/exit.png" /></a>
-                    <a class="nav-link" href="{% url 'shop:cart' %}"><img src="{% static 'shop/img/cart.png' %}" width="25px" alt="" /></a>
+                    <a class="nav-link" href=""><img src="{% static 'shop/img/user.png' %}" width="25px" alt=""/></a>
+                    {% if request.user.is_authenticated %}
+                        <a class="btn btn-danger" href="{% url 'user:logout' %}">
+                            logout<img src="https://img.icons8.com/ios/25/000000/exit.png"/> <!--logout-->
+                        </a>
+                    {% else %}
+                        <a class="btn btn-success" href="{% url 'user:login' %}">
+                            <img src="https://img.icons8.com/ios/25/000000/exit.png"/> <!--login-->
+                        </a>
+                    {% endif %}
+                    <a class="nav-link" href="{% url 'shop:cart' %}"><img src="{% static 'shop/img/cart.png' %}"
+                                                                          width="25px" alt=""/></a>
                 </div>
             </div>
         </nav>
