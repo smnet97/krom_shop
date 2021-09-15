@@ -21,39 +21,47 @@
                 <br>
             </div>
 
-            {% for prod in product %}
+            {% for cart in carts %}
                 <div class="row pt-5">
                     <div class="col-5 ">
                         <div class="row">
-                            <a href="{% url 'shop:detail' prod.id %}" class="col-4">
+                            <a href="{% url 'shop:detail' cart.product.id %}" class="col-4">
                                 <img src="{{ prod.image.url }}" class="img-fluid" alt="">
                             </a>
-                            <a href="{% url 'shop:detail' prod.id %}" style="text-decoration: none; color: black;" class="col-8 d-flex flex-column justify-content-center">
-                                <h6>{{ prod.category.name }}</h6>
-                                <h5>{{ prod.name }}</h5>
+                            <a href="{% url 'shop:detail' cart.product.id %}" style="text-decoration: none; color: black;" class="col-8 d-flex flex-column justify-content-center">
+                                <h6>{{ cart.product.category.name }}</h6>
+                                <h5>{{ cart.product.name }}</h5>
                             </a>
+                            <div class="col-4">
+                                <img src="{{ cart.product.image.url }}" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-8 d-flex flex-column justify-content-center">
+                                <h6>{{ cart.product.category.name }}</h6>
+                                <h5>{{ cart.product.name }}</h5>
+
+                            </div>
                         </div>
 
                     </div>
                     <div class="col-2 d-flex flex-column justify-content-center">
-                        <h6>{{ prod.price }}</h6>
+                        <h6>{{ cart.product.price }}</h6>
                     </div>
                     <div class="col-2 d-flex flex-column justify-content-center">
-                        <input type="number" id="{{ prod.category.slug }}{{ prod.id }}"
-                               class="form-control text-center " value="1"
-                               min="1" max="{{ prod.in_stock }}"
+                        <input type="number" id="{{ cart.product.category.slug }}{{ cart.product.id }}"
+                               class="form-control text-center " value="{{cart.amount}}"
+                               min="1" max="{{ cart.product.in_stock }}"
                                style="width: 70px">
 
                     </div>
                     <div class="col-2 d-flex flex-column justify-content-center">
                         <h6>
-                            <input type="text" id="{{ prod.category.slug }}total{{ prod.id }}"
-                                   disabled style="border: none; background: none;" value="{{ prod.price }}">
+                            <input type="text" id="{{ cart.product.category.slug }}total{{ cart.product.id }}"
+                                   disabled style="border: none; background: none;" value="{{ cart.get_total_price }}">
 
                         </h6>
                     </div>
                     <div class="col-1 d-flex flex-column justify-content-center">
-                        <button type="submit" class="btn bg-danger">x</button>
+                        <a href="{% url 'shop:delete-cart-item' cart.id %}" class="btn bg-danger">Delete</a>
                     </div>
                 </div>
             {% endfor %}

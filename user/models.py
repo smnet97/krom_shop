@@ -49,7 +49,7 @@ class UserModel(AbstractUser):
         verbose_name_plural = "users"
 
     def __str__(self):
-        return self.phone
+        return self.username
 
 
 class SmsCode(models.Model):

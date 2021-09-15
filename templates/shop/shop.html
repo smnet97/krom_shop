@@ -11,19 +11,23 @@
             <div class="container row row-cols-{{ cotegory|length }} mx-auto">
                 <input type="radio" id="reset" name="color"/>
                 <label class="col" for="reset">Все категории</label>
-                {% for cat in cotegory %}
-                    <input type="radio" id="{{ cat.slug }}" name="color"/>
-                    <label class="col" for="{{ cat.slug }}">{{ cat.name }}</label>
+                {% for category in categories %}
+                    <input type="radio" id="{{ category.slug }}" name="color"/>
+                    <label class="col" for="{{ category.slug }}">{{ category.name }}</label>
                 {% endfor %}
 
                 <div class="row mx-auto  w-100">
-                    {% for prod in product %}
+                    {% for prod in products %}
 
                         <div class="col-lg-3 mt-3 {{ prod.category.slug }}">
                             <div class="card product text-center h-100">
                                 <img src="{{ prod.image.url }}" class="card-img-top img-fluid" alt="{{ prod.name }}">
                                 <div class="card-body">
+<<<<<<< HEAD
                                     <a href="{% url 'shop:detail' prod.id %}" style="color: black; text-decoration: none;" class="card-text h5">{{ prod.name }}
+=======
+                                    <p class="card-text h5">{{ prod.name|truncatewords:'4' }}
+>>>>>>> a1f90041699bc637b659c638ef34ca0c77c0a58b
                                     <h5><b style="color: rgb(197, 99, 99);">{{ prod.price }} сумм</b></h5>
                                     </a>
                                 </div>
@@ -32,10 +36,19 @@
                                      style="right: 0px;
                          height: 100%;">
                                     <div class="carts">
+<<<<<<< HEAD
                                         <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cartt"
                                              style="width: 25px; "
                                              alt="" srcset="">
                                         <img src="{% static 'shop/img/carted.png' %}" class="pt-3 d-none cartt"
+=======
+                                        <a href="{% url 'shop:add-to-cart' prod.id %}">
+                                            <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cart"
+                                             style="width: 25px; "
+                                             alt="" srcset="">
+                                        </a>
+                                        <img src="{% static 'shop/img/carted.png' %}" class="pt-3 d-none cart"
+>>>>>>> a1f90041699bc637b659c638ef34ca0c77c0a58b
                                              style="width: 25px; " alt="" srcset="">
                                     </div>
                                     <div href="" class="likes">
@@ -127,9 +140,9 @@
 
                     {% endfor %}
                     <style>
-                        {% for cat in cotegory %}
+                        {% for category in categories %}
 
-                            input[type="radio"][id="{{ cat.slug }}"]:checked ~ .row .col-lg-3:not(.{{ cat.slug }}) {
+                            input[type="radio"][id="{{ category.slug }}"]:checked ~ .row .col-lg-3:not(.{{ category.slug }}) {
                                 display: none;
                             }
                         {% endfor %}
@@ -146,3 +159,4 @@
     </div>
 
 {% endblock content %}
+

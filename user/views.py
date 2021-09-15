@@ -91,16 +91,12 @@ def code_confirmation(request):
     request.title = "Код подтверждения"
 
     data = request.session["recovery"]
-    print(data)
     if request.method != "POST" or data['phone'] is None:
         return redirect("user:sign_up")
 
     code = request.POST.get("code")
-    print(code)
-    #
-    if data['phone'] is None:  #or not validate_sms_code(data["phone"], code)
+    if data['phone'] is None or not validate_sms_code(data["phone"], code):
         return False
-    print(data)
     user = UserModel.objects.create(username=data["phone"], password=make_password(data["password"]))
     # user.set_password(data["password"])
     # print(user)
