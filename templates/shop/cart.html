@@ -44,12 +44,23 @@
                             <div class="col-2 d-flex flex-column justify-content-center">
                                 <h6>{{ cart.product.price }}</h6>
                             </div>
+{#                            <div class="col-2 d-flex flex-column justify-content-center">#}
+{#                                <input type="number" id="{{ cart.product.category.slug }}{{ cart.product.id }}"#}
+{#                                       class="form-control text-center " value="{{ cart.amount }}"#}
+{#                                       min="1" max="{{ cart.product.in_stock }}"#}
+{#                                       style="width: 70px">#}
+{##}
+{#                            </div>#}
                             <div class="col-2 d-flex flex-column justify-content-center">
-                                <input type="number" id="{{ cart.product.category.slug }}{{ cart.product.id }}"
-                                       class="form-control text-center " value="{{ cart.amount }}"
-                                       min="1" max="{{ cart.product.in_stock }}"
-                                       style="width: 70px">
 
+                                <form class="change_amount_form" action="{% url 'shop:change-product-amount' cart.id %}"
+                                      method="get">
+                                    <input type="number" data-id={{ cart.id }} id="{{ cart.product.category.slug }}{{ cart.product.id }}"
+                                           class="form-control text-center change_amount " value="{{ cart.amount }}"
+                                           name="cart_amount"
+                                           min="1" max="{{ cart.product.in_stock }}"
+                                           style="width: 70px">
+                                </form>
                             </div>
                             <div class="col-2 d-flex flex-column justify-content-center">
                                 <h6>
@@ -68,31 +79,31 @@
                     {% endfor %}
                 </div>
                 <div class="col-4 ">
-                    <div class="sticky-top" >
+                    <div class="sticky-top">
                         <div class="check  w-100 " style=";border: 1px solid silver">
-                        <h5 class="px-4 pt-3 text-center">Итоги заказа</h5>
-                        <hr>
-                        <div class="d-flex px-4 py-3 justify-content-between">
-                            <span>Промежуточный итог</span>
-                            <span>121 111 сум</span>
-                        </div>
+                            <h5 class="px-4 pt-3 text-center">Итоги заказа</h5>
+                            <hr>
                             <div class="d-flex px-4 py-3 justify-content-between">
-                            <span>Доставка </span>
-                            <span>30 000 сум</span>
-                        </div>
+                                <span>Промежуточный итог</span>
+                                <span>121 111 сум</span>
+                            </div>
+                            <div class="d-flex px-4 py-3 justify-content-between">
+                                <span>Доставка </span>
+                                <span>30 000 сум</span>
+                            </div>
 
-                        <hr class="mb-0">
-                        <div class="d-flex px-4 py-3 justify-content-between" style="">
-                            <span>Всего</span>
-                            <span>232 123 123 сум</span>
+                            <hr class="mb-0">
+                            <div class="d-flex px-4 py-3 justify-content-between" style="">
+                                <span>Всего</span>
+                                <span>232 123 123 сум</span>
+                            </div>
                         </div>
-                    </div>
-                    <a href="{% url 'shop:checkout' %}"
-                       style=" margin-top: 10px; background: #4F944F; color: #ffffff; border: 1px solid #0b2e13"
-                       class="py-2 w-100 btn">Оформить заказ</a>
+                        <a href="{% url 'shop:checkout' %}"
+                           style=" margin-top: 10px; background: #4F944F; color: #ffffff; border: 1px solid #0b2e13"
+                           class="py-2 w-100 btn">Оформить заказ</a>
 
-                    <a href="{% url 'shop:shop' %}" class="py-2 px-3 btn mb-auto w-100 ">Продолжить покупки</a>
-                    <button class="px-3 btn w-100">Очистить карзину</button>
+                        <a href="{% url 'shop:shop' %}" class="py-2 px-3 btn mb-auto w-100 ">Продолжить покупки</a>
+                        <button class="px-3 btn w-100">Очистить карзину</button>
                     </div>
                 </div>
             </div>
@@ -106,14 +117,38 @@
 {% endblock content %}
 
 {% block js %}
-    <script>
-        {% for prod in product %}
-            $('#{{ prod.category.slug }}{{ prod.id }}').change(function () {
-                var a = $('#{{ prod.category.slug }}{{ prod.id }}').val()
-                $('#{{ prod.category.slug }}total{{ prod.id }}').val(a *{{ prod.price }})
-            })
+{#    <script>#}
+{#        {% for prod in product %}#}
+{#            $('#{{ prod.category.slug }}{{ prod.id }}').change(function () {#}
+{#                var a = $('#{{ prod.category.slug }}{{ prod.id }}').val()#}
+{#                $('#{{ prod.category.slug }}total{{ prod.id }}').val(a *{{ prod.price }})#}
+{#            })#}
+{##}
+{#        {% endfor %}#}
+{#    </script>#}
 
-        {% endfor %}
+    <script>
+        $(document).ready(function(){
+
+        let forms = document.querySelectorAll('.change_amount_form')
+        forms.forEach(function(elem){
+            elem[0].addEventListener('change', function(){
+                elem.submit()
+            })
+        })
+
+
+            {% for prod in product %}
+                $('#{{ prod.category.slug }}{{ prod.id }}').change(function () {
+                    var a = $('#{{ prod.category.slug }}{{ prod.id }}').val()
+                    $('#{{ prod.category.slug }}total{{ prod.id }}').val(a *{{ prod.price }})
+                })
+
+            {% endfor %}
+
+
+        })
+
     </script>
 
 {% endblock js %}
