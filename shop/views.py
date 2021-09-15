@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import ProductModel, CategoryModel
+from django.shortcuts import render, redirect
+from .models import CartModel, ProductModel, CategoryModel
 
 
 def home(request):
@@ -17,7 +17,23 @@ def shop(request):
     return render(request, 'shop/shop.html' , {'categories': categories, 'products': products})
 
 def cart(request):
-    cotegory = CategoryModel.objects.all()
-    product = ProductModel.objects.all()
-    return render(request, 'shop/cart.html' , {'cotegory': cotegory, 'product': product})
+    carts = CartModel.objects.all()
+    return render(request, 'shop/cart.html' , {'carts': carts})
+
+
+def add_to_cart(request, pk):
+    user = request.user
+    product = ProductModel.objects.get(pk=pk)
+    check_if_exsist = CartModel.objects.filter(product=product)
+    if check_if_exsist:
+        return redirect('shop:shop')
+    created = CartModel.objects.create(user=user, product=product)
+    if created:
+        return redirect('shop:cart')
+
+
+def delete_cart_item(request, pk):
+    obj = CartModel.objects.get(pk=pk)
+    obj.delete()
+    return redirect('shop:cart')
 
