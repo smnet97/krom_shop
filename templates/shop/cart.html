@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+
+{% if carts %}
     <div class="cart">
 
         <div class="container position-relative">
@@ -40,12 +42,16 @@
                         <h6>{{ cart.product.price }}</h6>
                     </div>
                     <div class="col-2 d-flex flex-column justify-content-center">
-                        <input type="number" id="{{ cart.product.category.slug }}{{ cart.product.id }}"
-                               class="form-control text-center " value="{{cart.amount}}"
+
+                        <form class="change_amount_form" action="{% url 'shop:change-product-amount' cart.id %}" method="get">
+                            <input type="number" data-id={{cart.id}} id="{{ cart.product.category.slug }}{{ cart.product.id }}"
+                               class="form-control text-center change_amount " value="{{cart.amount}}" name="cart_amount"
                                min="1" max="{{ cart.product.in_stock }}"
                                style="width: 70px">
-
+                        </form>
                     </div>
+
+                    <p class="hello"></p>
                     <div class="col-2 d-flex flex-column justify-content-center">
                         <h6>
                             <input type="text" id="{{ cart.product.category.slug }}total{{ cart.product.id }}"
@@ -58,26 +64,45 @@
                     </div>
                 </div>
             {% endfor %}
+    
             <div class="d-flex justify-content-between pt-5">
                 <a href="{% url 'shop:shop' %}" class="py-2 px-3 btn  ">Продолжить покупки</a>
-                <button class="py-2 px-3 btn  ">Очистить карзину</button>
+                <a href="{% url 'shop:clean-cart' %}" class="py-2 px-3 btn  ">Очистить карзину</a>
             </div>
+
         </div>
 
 
     </div>
+    {% else %}
+        <p style="text-align: center; margin-top: 100px;">Ваша карзина пуста</p>
+    {% endif %}
 
 {% endblock content %}
 
 {% block js %}
     <script>
-        {% for prod in product %}
-            $('#{{ prod.category.slug }}{{ prod.id }}').change(function () {
-                var a = $('#{{ prod.category.slug }}{{ prod.id }}').val()
-                $('#{{ prod.category.slug }}total{{ prod.id }}').val(a *{{ prod.price }})
-            })
+        $(document).ready(function(){
 
-        {% endfor %}
+        let forms = document.querySelectorAll('.change_amount_form')
+        forms.forEach(function(elem){
+            elem[0].addEventListener('change', function(){
+                elem.submit()
+            })
+        })
+        
+
+            {% for prod in product %}
+                $('#{{ prod.category.slug }}{{ prod.id }}').change(function () {
+                    var a = $('#{{ prod.category.slug }}{{ prod.id }}').val()
+                    $('#{{ prod.category.slug }}total{{ prod.id }}').val(a *{{ prod.price }})
+                })
+
+            {% endfor %}
+
+        
+        })
+        
     </script>
 
 {% endblock js %}

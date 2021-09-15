@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import CartModel, ProductModel, CategoryModel
+from django.http import JsonResponse
 
 
 def home(request):
@@ -7,10 +8,8 @@ def home(request):
     return render(request, 'shop/home.html' , {'cotegory': cotegory})
 
 
-def detail(request, pk):
-    product = ProductModel.objects.get(id=pk)
-    products = ProductModel.objects.filter(category=product.category)[:4]
-    return render(request, 'shop/detail.html' , {'products':products , 'prod': product})
+def detail(request):
+    return render(request, 'shop/detail.html')
 
 def shop(request):
     categories = CategoryModel.objects.all()
@@ -40,5 +39,14 @@ def delete_cart_item(request, pk):
 
 
 def clean_cart(request):
-    pass
+    obj = CartModel.objects.all()
+    obj.delete()
+    return redirect('shop:shop')
+
+
+def  change_product_amount(request, pk):
+    obj = CartModel.objects.get(pk=pk)
+    obj.amount = request.GET.get('cart_amount')
+    obj.save()
+    return redirect('shop:cart')
 
