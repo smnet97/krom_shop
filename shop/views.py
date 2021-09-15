@@ -21,13 +21,17 @@ def cart(request):
     carts = CartModel.objects.all()
     return render(request, 'shop/cart.html' , {'carts': carts})
 
+def checkout(request):
+    carts = CartModel.objects.all()
+    return render(request, 'shop/checkout.html' , {'carts': carts})
+
 
 def add_to_cart(request, pk):
     user = request.user
     product = ProductModel.objects.get(pk=pk)
     check_if_exsist = CartModel.objects.filter(product=product)
     if check_if_exsist:
-        return redirect('shop:shop')
+        return redirect('shop:cart')
     created = CartModel.objects.create(user=user, product=product)
     if created:
         return redirect('shop:cart')
