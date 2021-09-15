@@ -32,7 +32,7 @@ class ProductModel(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     dsecription = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='product_images', null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+    price = models.IntegerField( null=True, blank=True)
     sale = models.BooleanField(default=False, null=True, blank=True)
     liked = models.BooleanField(default=False, blank=True, null=True)
     in_stock = models.IntegerField(default=0, null=True, blank=True)

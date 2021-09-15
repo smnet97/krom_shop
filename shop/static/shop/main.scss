@@ -136,6 +136,26 @@ h5,
 
 }
 
+
+.allcart{
+  .col-lg-3{
+    padding-left: 8px ;
+    padding-right: 8px ;
+  }
+  .product {
+    box-shadow: 0 10px 25px 0 #0000001A;
+    .card {
+      border-radius: 5px;
+    }
+    &:hover {
+      .hover {
+        display: flex !important;
+      }
+      box-shadow: 0 14px 28px rgba(48, 46, 46, 0.25), 0 10px 10px rgba(170, 165, 165, 0.22);
+    }
+  }
+}
+
 .cart{
   margin-top: 100px;
 

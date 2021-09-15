@@ -1,23 +1,174 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-    <div class="bg-light">
-        <div class="container ">
+    <div class="detail">
+        <div class="container " style="margin-top: 100px;">
 
-            <div class="small text-secondary">Home > Shop > Product</div>
+            <div class="row p-3">
+                <div class="col-lg-6">
+                    <img class="img-fluid" src="{{ prod.image.url }}" alt="{{ prod.name }}">
+                </div>
+                <div class="col-lg-6 d-flex flex-column">
+                    <h3><b>{{ prod.name }}</b></h3>
+                    <h4 style=" color: rgb(197, 99, 99)">{{ prod.price }} сумм</h4>
+                    {% if prod.in_stock > 0 %}
+                        <h6 style="color: green;"> В наличии</h6>
+                    {% else %}
+                        <h6 style="color: red">Нет наличии</h6>
+                    {% endif %}
 
-            <div class="row">
-                <div class="col-6"><img width="500px"
-                                        src="https://vendor.webuildthemes.com/assets/images/demo/product-8.jpg"></div>
-                <div class="col-6">
-                    <div class="name font-50">Hajo Backpack</div>
-                    <div class="cost item-price">$99</div>
-                    <div class="description">This minimalist backpack is suitable for any occasion.
-                        Whether on the road by bike, shopping or in the nightlife.
+
+                    <h6 style="">Категория: {{ prod.category.name }}</h6>
+                    <p style="color: silver">Описание </p>
+                    <h6>{{ prod.dsecription }}</h6>
+                    <br>
+
+                    <div class="d-flex align-items-center">
+
+
+                        <div class="carts ">
+                            <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                 alt=""><span> в карзину </span>
+                            <img src="{% static 'shop/img/cart.png' %}" class=" cartt"
+                                 style="width: 25px; "
+                                 alt="" srcset="">
+                            <img src="{% static 'shop/img/carted.png' %}"
+                                 class=" d-none cartt"
+                                 style="width: 25px; " alt="" srcset="">
+                        </div>
+                        <div href="" class="likes pl-5">
+                            <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                 alt=""><span> в избранное </span>
+                            <img src="{% static 'shop/img/like.png' %}" class=" like"
+                                 style="width: 25px;  "
+                                 alt="" srcset="">
+                            <img src="{% static 'shop/img/liked.png' %}"
+                                 class=" d-none like"
+                                 style="width: 25px;  " alt="" srcset="">
+                        </div>
                     </div>
-                    <div class="count"><input type="number" min="1" max="10" value="1"></div>
-                    <div class="addToCard"></div>
                 </div>
             </div>
+
+
+            <h2>Сопутствующие товары </h2>
+            <div class="row allcart">
+
+                {% for pro in products %}
+
+                    <div class="col-lg-3 mt-3 {{ pro.category.slug }}">
+                        <div class="card product text-center h-100">
+                            <img src="{{ pro.image.url }}" class="card-img-top img-fluid" alt="{{ pro.name }}">
+                            <div class="card-body">
+                                <a href="{% url 'shop:detail' pro.id %}" style="color: black; text-decoration: none;"
+                                   class="card-text h5">{{ pro.name }}
+                                    <h5><b style="color: rgb(197, 99, 99);">{{ pro.price }} сумм</b></h5>
+                                </a>
+                            </div>
+
+                            <div class=" d-none hover justify-content-center pr-2 flex-column position-absolute"
+                                 style="right: 0px;
+                         height: 100%;">
+                                <div class="carts">
+                                    <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cartt"
+                                         style="width: 25px; "
+                                         alt="" srcset="">
+                                    <img src="{% static 'shop/img/carted.png' %}" class="pt-3 d-none cartt"
+                                         style="width: 25px; " alt="" srcset="">
+                                </div>
+                                <div href="" class="likes">
+                                    <img src="{% static 'shop/img/like.png' %}" class="pt-3 like"
+                                         style="width: 25px;  "
+                                         alt="" srcset="">
+                                    <img src="{% static 'shop/img/liked.png' %}" class="pt-3 d-none like"
+                                         style="width: 25px;  " alt="" srcset="">
+                                </div>
+
+
+                                <!-- Button trigger modal -->
+
+                                <button type="button" class="btn pt-3 bg-transparent p-0" data-toggle="modal"
+                                        data-target="#exampleModal{{ pro.id }}">
+                                    <img src="{% static 'shop/img/full_half.png' %}" class="img-fluid"
+                                         style="width: 25px;"
+                                         alt="" srcset="">
+                                </button>
+
+
+                            </div>
+
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade  " id="exampleModal{{ pro.id }}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel{{ pro.id }}"
+                             aria-hidden="true">
+                            <div class="modal-dialog mx-auto position-absolute p-4"
+                                 style="width: 70vw;  left: 15%; top: 10% ">
+                                <div class="modal-content mx-auto " style="width: 75vw; border-radius: 10px">
+                                    <div class="modal-header mx-auto " style="width: 100%; border: none">
+                                        <h5 class="modal-title" id="exampleModalLabel{{ pro.id }}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="row p-3">
+                                        <div class="col-lg-6">
+                                            <img class="img-fluid" src="{{ pro.image.url }}" alt="">
+                                        </div>
+                                        <div class="col-lg-6 d-flex flex-column">
+                                            <h3><b>{{ pro.name }}</b></h3>
+                                            <h4 style=" color: rgb(197, 99, 99)">{{ pro.price }} сумм</h4>
+                                            {% if pro.in_stock > 0 %}
+                                                <h6 style="color: green"> В наличии</h6>
+                                            {% else %}
+                                                <h6 style="color: red">Нет наличии</h6>
+                                            {% endif %}
+
+
+                                            <h6 style="">Категория: {{ pro.category.name }}</h6>
+                                            <p style="color: silver">Описание </p>
+                                            <h6>{{ pro.dsecription }}</h6>
+                                            <br>
+
+                                            <div class="d-flex align-items-center">
+
+                                                <div class="carts ">
+                                                    <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                                         alt=""><span> в карзину </span>
+                                                    <img src="{% static 'shop/img/cart.png' %}" class=" cartt"
+                                                         style="width: 25px; "
+                                                         alt="" srcset="">
+                                                    <img src="{% static 'shop/img/carted.png' %}"
+                                                         class=" d-none cartt"
+                                                         style="width: 25px; " alt="" srcset="">
+                                                </div>
+                                                <div href="" class="likes pl-5">
+                                                    <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                                         alt=""><span> в избранное </span>
+                                                    <img src="{% static 'shop/img/like.png' %}" class=" like"
+                                                         style="width: 25px;  "
+                                                         alt="" srcset="">
+                                                    <img src="{% static 'shop/img/liked.png' %}"
+                                                         class=" d-none like"
+                                                         style="width: 25px;  " alt="" srcset="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
         </div>
     </div>
 
