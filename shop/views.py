@@ -37,3 +37,7 @@ def delete_cart_item(request, pk):
     obj.delete()
     return redirect('shop:cart')
 
+
+def clean_cart(request):
+    pass
+
