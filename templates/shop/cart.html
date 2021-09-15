@@ -25,14 +25,13 @@
                 <div class="row pt-5">
                     <div class="col-5 ">
                         <div class="row">
-                            <div class="col-4">
+                            <a href="{% url 'shop:detail' prod.id %}" class="col-4">
                                 <img src="{{ prod.image.url }}" class="img-fluid" alt="">
-                            </div>
-                            <div class="col-8 d-flex flex-column justify-content-center">
+                            </a>
+                            <a href="{% url 'shop:detail' prod.id %}" style="text-decoration: none; color: black;" class="col-8 d-flex flex-column justify-content-center">
                                 <h6>{{ prod.category.name }}</h6>
                                 <h5>{{ prod.name }}</h5>
-
-                            </div>
+                            </a>
                         </div>
 
                     </div>

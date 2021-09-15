@@ -23,19 +23,19 @@
                             <div class="card product text-center h-100">
                                 <img src="{{ prod.image.url }}" class="card-img-top img-fluid" alt="{{ prod.name }}">
                                 <div class="card-body">
-                                    <p class="card-text h5">{{ prod.name }}
+                                    <a href="{% url 'shop:detail' prod.id %}" style="color: black; text-decoration: none;" class="card-text h5">{{ prod.name }}
                                     <h5><b style="color: rgb(197, 99, 99);">{{ prod.price }} сумм</b></h5>
-                                    </p>
+                                    </a>
                                 </div>
 
                                 <div class=" d-none hover justify-content-center pr-2 flex-column position-absolute"
                                      style="right: 0px;
                          height: 100%;">
                                     <div class="carts">
-                                        <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cart"
+                                        <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cartt"
                                              style="width: 25px; "
                                              alt="" srcset="">
-                                        <img src="{% static 'shop/img/carted.png' %}" class="pt-3 d-none cart"
+                                        <img src="{% static 'shop/img/carted.png' %}" class="pt-3 d-none cartt"
                                              style="width: 25px; " alt="" srcset="">
                                     </div>
                                     <div href="" class="likes">
@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="row p-3">
                                             <div class="col-lg-6">
-                                                <img class="img-fluid" src="{% static 'shop/img/prod.jpg' %}" alt="">
+                                                <img class="img-fluid" src="{{ prod.image.url}}" alt="">
                                             </div>
                                             <div class="col-lg-6 d-flex flex-column">
                                                 <h3><b>{{ prod.name }}</b></h3>
@@ -97,11 +97,11 @@
                                                     <div class="carts ">
                                                         <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
                                                              alt=""><span> в карзину </span>
-                                                        <img src="{% static 'shop/img/cart.png' %}" class=" cart"
+                                                        <img src="{% static 'shop/img/cart.png' %}" class=" cartt"
                                                              style="width: 25px; "
                                                              alt="" srcset="">
                                                         <img src="{% static 'shop/img/carted.png' %}"
-                                                             class=" d-none cart"
+                                                             class=" d-none cartt"
                                                              style="width: 25px; " alt="" srcset="">
                                                     </div>
                                                     <div href="" class="likes pl-5">
