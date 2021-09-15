@@ -10,11 +10,9 @@ def home(request):
 def detail(request, pk):
     product = ProductModel.objects.get(id=pk)
     products = ProductModel.objects.filter(category=product.category)[:4]
-
     return render(request, 'shop/detail.html' , {'products':products , 'prod': product})
 
 def shop(request):
-
     categories = CategoryModel.objects.all()
     products = ProductModel.objects.all()
     return render(request, 'shop/shop.html' , {'categories': categories, 'products': products})
