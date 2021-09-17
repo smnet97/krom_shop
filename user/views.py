@@ -142,6 +142,7 @@ def post_code(request):
 
     code = request.POST.get("code")
 
+    print(data['phone'], data)
     if data["phone"] is None or not validate_sms_code(data["phone"], code):
         return False
 

@@ -27,7 +27,7 @@ def send_sms_code(request, phone):
         raise SuspiciousOperation("Over limit")
 
     phone_count = SmsCode.objects.filter(phone=phone).count()
-    if phone_count > 50:
+    if phone_count > 100:
         raise SuspiciousOperation("Over limit")
 
     code = sms_code()
@@ -46,7 +46,7 @@ def send_sms_code(request, phone):
 def validate_sms_code(phone, code):
     try:
         obj = SmsAttempt.objects.get(phone=phone)
-        if obj.counter >= 10:
+        if obj.counter >= 100:
             return False
 
         obj.counter = F('counter') + 1
