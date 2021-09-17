@@ -26,17 +26,19 @@
 
                     <div class="d-flex align-items-center">
 
-
-                        <div class="carts ">
+                        <a class="aaa carts" href="{% url 'shop:add-to-cart' prod.id %}"
+                           style="text-decoration: none; color: black">
                             <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
                                  alt=""><span> в карзину </span>
-                            <img src="{% static 'shop/img/cart.png' %}" class=" cartt"
+                            <img src="{% static 'shop/img/cart.png' %}"
+                                 class=" cartt"
                                  style="width: 25px; "
                                  alt="" srcset="">
                             <img src="{% static 'shop/img/carted.png' %}"
-                                 class=" d-none cartt"
-                                 style="width: 25px; " alt="" srcset="">
-                        </div>
+                                 style="width: 25px; "
+                                 class=" d-none carttt">
+
+                        </a>
                         <div href="" class="likes pl-5">
                             <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
                                  alt=""><span> в избранное </span>
@@ -70,13 +72,14 @@
                             <div class=" d-none hover justify-content-center pr-2 flex-column position-absolute"
                                  style="right: 0px;
                          height: 100%;">
-                                <div class="carts">
+                                <a class="aaa carts" href="{% url 'shop:add-to-cart' prod.id %}"
+                                   style="text-decoration: none; color: black">
                                     <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cartt"
                                          style="width: 25px; "
                                          alt="" srcset="">
-                                    <img src="{% static 'shop/img/carted.png' %}" class="pt-3 d-none cartt"
-                                         style="width: 25px; " alt="" srcset="">
-                                </div>
+                                    <img src="{% static 'shop/img/carted.png' %}" style="width: 25px"
+                                         class="pt-3 d-none carttt">
+                                </a>
                                 <div href="" class="likes">
                                     <img src="{% static 'shop/img/like.png' %}" class="pt-3 like"
                                          style="width: 25px;  "
@@ -133,16 +136,19 @@
 
                                             <div class="d-flex align-items-center">
 
-                                                <div class="carts ">
+                                                <a class="aaa carts" href="{% url 'shop:add-to-cart' prod.id %}"
+                                                   style="text-decoration: none; color: black">
                                                     <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
                                                          alt=""><span> в карзину </span>
-                                                    <img src="{% static 'shop/img/cart.png' %}" class=" cartt"
+                                                    <img src="{% static 'shop/img/cart.png' %}"
+                                                         class=" cartt"
                                                          style="width: 25px; "
                                                          alt="" srcset="">
                                                     <img src="{% static 'shop/img/carted.png' %}"
-                                                         class=" d-none cartt"
-                                                         style="width: 25px; " alt="" srcset="">
-                                                </div>
+                                                         style="width: 25px; "
+                                                         class=" d-none carttt">
+
+                                                </a>
                                                 <div href="" class="likes pl-5">
                                                     <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
                                                          alt=""><span> в избранное </span>

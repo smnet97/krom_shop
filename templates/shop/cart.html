@@ -1,67 +1,109 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
     <div class="cart">
 
-        <div class="container position-relative">
-            <div class="row sticky-top" style="top: 0">
-                <div class="col-5">
-                    <h5>Продукт</h5>
-                </div>
-                <div class="col-2">
-                    <h6>Цена</h6>
-                </div>
-                <div class="col-2">
-                    <h6>Качество</h6>
-                </div>
-                <div class="col-2">
-                    <h6>Всего</h6>
-                </div>
-                <br>
-            </div>
-
-            {% for cart in carts %}
-                <div class="row pt-5">
-                    <div class="col-5 ">
-                        <div class="row">
-                            <a href="{% url 'shop:detail' cart.product.id %}" class="col-4">
-                                <img src="{{ cart.product.image.url }}" class="img-fluid" alt="">
-                            </a>
-                            <a href="{% url 'shop:detail' cart.product.id %}" style="text-decoration: none; color: black;" class="col-8 d-flex flex-column justify-content-center">
-                                <h6>{{ cart.product.category.name }}</h6>
-                                <h5>{{ cart.product.name }}</h5>
-                            </a>
-
+        <div class="container ">
+            <div class="row">
+                <div class="col-8">
+                    <div class="row ">
+                        <div class="col-5">
+                            <h5>Продукт</h5>
                         </div>
+                        <div class="col-2">
+                            <h6>Цена</h6>
+                        </div>
+                        <div class="col-2">
+                            <h6>Количество</h6>
+                        </div>
+                        <div class="col-2">
+                            <h6>Всего</h6>
+                        </div>
+                        <br>
+                    </div>
 
-                    </div>
-                    <div class="col-2 d-flex flex-column justify-content-center">
-                        <h6>{{ cart.product.price }}</h6>
-                    </div>
-                    <div class="col-2 d-flex flex-column justify-content-center">
-                        <input type="number" id="{{ cart.product.category.slug }}{{ cart.product.id }}"
-                               class="form-control text-center " value="{{cart.amount}}"
-                               min="1" max="{{ cart.product.in_stock }}"
-                               style="width: 70px">
+                    {% for cart in carts %}
+                        <div class="row pt-5">
+                            <div class="col-5 ">
+                                <div class="row">
+                                    <a href="{% url 'shop:detail' cart.product.id %}" class="col-4">
+                                        <img src="{{ cart.product.image.url }}" class="img-fluid" alt="">
+                                    </a>
+                                    <a href="{% url 'shop:detail' cart.product.id %}"
+                                       style="text-decoration: none; color: black;"
+                                       class="col-8 d-flex flex-column justify-content-center">
+                                        <h5>{{ cart.product.name }}</h5>
+                                        <span>{{ cart.product.category.name }}</span>
 
-                    </div>
-                    <div class="col-2 d-flex flex-column justify-content-center">
-                        <h6>
-                            <input type="text" id="{{ cart.product.category.slug }}total{{ cart.product.id }}"
-                                   disabled style="border: none; background: none;" value="{{ cart.get_total_price }}">
+                                    </a>
 
-                        </h6>
-                    </div>
-                    <div class="col-1 d-flex flex-column justify-content-center">
-                        <a href="{% url 'shop:delete-cart-item' cart.id %}" class="btn bg-danger">Delete</a>
+                                </div>
+
+                            </div>
+                            <div class="col-2 d-flex flex-column justify-content-center">
+                                <h6>{{ cart.product.price }}</h6>
+                            </div>
+
+                            <div class="col-2 d-flex flex-column justify-content-center">
+
+                                <form class="change_amount_form" action="{% url 'shop:change-product-amount' cart.id %}"
+                                      method="get">
+                                    <input type="number" data-id={{ cart.id }} id="{{ cart.product.category.slug }}{{ cart.product.id }}"
+                                           class="form-control text-center change_amount " value="{{ cart.amount }}"
+                                           name="cart_amount"
+                                           min="1" max="{{ cart.product.in_stock }}"
+                                           style="width: 70px">
+                                </form>
+                            </div>
+                            <div class="col-2 d-flex flex-column justify-content-center">
+                                <h6>
+                                    <input type="text" id="{{ cart.product.category.slug }}total{{ cart.product.id }}"
+                                           disabled style="border: none; background: none;"
+                                           value="{{ cart.get_total_price }}">
+
+                                </h6>
+                            </div>
+                            <div class="col-1 p-0 d-flex flex-column justify-content-center">
+                                <a href="{% url 'shop:delete-cart-item' cart.id %}" class="btn bg-danger"><img
+                                        src="{% static 'shop/img/trash.png' %}"
+                                        alt="Delete" style="width: 25px"></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-4 ">
+                    <div class="sticky-top">
+                        <div class="check  w-100 " style=";border: 1px solid silver">
+                            <h5 class="px-4 pt-3 text-center">Итоги заказа</h5>
+                            <hr>
+                            <div class="d-flex px-4 py-3 justify-content-between">
+                                <span>Промежуточный итог</span>
+                                <span>{{total}} сум</span>
+                            </div>
+                            <div class="d-flex px-4 py-3 justify-content-between">
+                                <span>Доставка </span>
+                                <span>{{delivery.delivery}} сум</span>
+                            </div>
+
+                            <hr class="mb-0">
+                            <div class="d-flex px-4 py-3 justify-content-between" style="">
+                                <span>Всего</span>
+                                <span>{{total_sum}} сум</span>
+                            </div>
+                        </div>
+                        <a href="{% url 'shop:checkout' %}"
+                           style=" margin-top: 10px; background: #4F944F; color: #ffffff; border: 1px solid #0b2e13"
+                           class="py-2 w-100 btn">Оформить заказ</a>
+
+                        <a href="{% url 'shop:shop' %}" class="py-2 px-3 btn mb-auto w-100 ">Продолжить покупки</a>
+                        <button class="px-3 btn w-100">Очистить карзину</button>
                     </div>
                 </div>
-            {% endfor %}
-            <div class="d-flex justify-content-between pt-5">
-                <a href="{% url 'shop:shop' %}" class="py-2 px-3 btn  ">Продолжить покупки</a>
-                <button class="py-2 px-3 btn  ">Очистить карзину</button>
             </div>
+
+
         </div>
 
 
@@ -70,14 +112,31 @@
 {% endblock content %}
 
 {% block js %}
-    <script>
-        {% for prod in product %}
-            $('#{{ prod.category.slug }}{{ prod.id }}').change(function () {
-                var a = $('#{{ prod.category.slug }}{{ prod.id }}').val()
-                $('#{{ prod.category.slug }}total{{ prod.id }}').val(a *{{ prod.price }})
-            })
 
-        {% endfor %}
+
+    <script>
+        $(document).ready(function(){
+
+        let forms = document.querySelectorAll('.change_amount_form')
+        forms.forEach(function(elem){
+            elem[0].addEventListener('change', function(){
+                elem.submit()
+            })
+        })
+
+
+            {% for prod in product %}
+                $('#{{ prod.category.slug }}{{ prod.id }}').change(function () {
+                    var a = $('#{{ prod.category.slug }}{{ prod.id }}').val()
+                    $('#{{ prod.category.slug }}total{{ prod.id }}').val(a *{{ prod.price }})
+                })
+
+            {% endfor %}
+
+
+        })
+
     </script>
 
 {% endblock js %}
+

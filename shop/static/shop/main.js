@@ -22,7 +22,8 @@ $('.carousel').carousel({
   });
 
   $('.carts').on( 'click', function() {
-    $(this).children('.cartt').toggleClass('d-none')
+    $(this).children('.aaa .cartt').addClass('d-none')
+    $(this).children('.aaa .carttt').removeClass('d-none')
   });
 
 
