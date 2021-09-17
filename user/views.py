@@ -4,7 +4,7 @@ from django.views import View
 from django.views.decorators.http import require_POST
 
 from .models import UserModel
-from .forms import LoginForm, RegistrationForm, GetCodeForm
+from .forms import LoginForm, RegistrationForm, GetCodeForm, ForgotPassword
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from krom.helpers import send_sms_code, validate_sms_code
@@ -95,8 +95,8 @@ def code_confirmation(request):
         return redirect("user:sign_up")
 
     code = request.POST.get("code")
-    if data['phone'] is None or not validate_sms_code(data["phone"], code):
-        return False
+    # if data['phone'] is None or not validate_sms_code(data["phone"], code):
+    #     return False
     user = UserModel.objects.create(username=data["phone"], password=make_password(data["password"]))
     # user.set_password(data["password"])
     # print(user)
@@ -106,3 +106,47 @@ def code_confirmation(request):
         return redirect("shop:home")
 
     return redirect("user:sign_up")
+
+
+def forgot_password(request):
+    request.title = "Забыли пароль"
+    form = ForgotPassword()
+    if request.method == "POST":
+        form = ForgotPassword(request.POST)
+        if form.is_valid() and request.method == "POST":
+            phone = form.cleaned_data["username"]
+            password = form.cleaned_data["new_password"]
+            if UserModel.objects.filter(username=phone).exists():
+                send_sms_code(request, phone)
+                request.session["recovery"] = {
+                    "phone": phone,
+                    "new_password": password
+                }
+                get_code_form = GetCodeForm()
+                return render(request, "users/get_code.html", {
+                    "form": get_code_form,
+                    "request.title": "Отправить код"
+                })
+    return render(request, "users/forgot_password.html", {
+        'form': form,
+    })
+
+
+@require_POST
+def post_code(request):
+    # request.title = "Отправить код"
+
+    data = request.session.get("recovery")
+    if request.method != "POST" or data["phone"] is None:
+        return redirect('forgot_password')
+
+    code = request.POST.get("code")
+
+    if data["phone"] is None or not validate_sms_code(data["phone"], code):
+        return False
+
+    user = UserModel.objects.get(username=data["phone"])
+    user.set_password(data["new_password"])
+    user.save()
+
+    return redirect("user:login")

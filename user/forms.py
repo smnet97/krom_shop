@@ -3,22 +3,23 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from user.models import UserModel
 from krom.validators import PhoneValidator
+from krom.validators2 import PhoneValidatorTest
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=14, required=True,
-                            widget=forms.TextInput(attrs={'placeholder': '998971234567'}), label=False)
+                               widget=forms.TextInput(attrs={'placeholder': '998971234567'}), label=False)
     password = forms.CharField(max_length=50, widget=forms.PasswordInput, required=True,
                                validators=[MinLengthValidator(6)], label=False)
 
 
 class RegistrationForm(forms.Form):
     username = forms.CharField(max_length=14, required=True, validators=[PhoneValidator()],
-                            widget=forms.TextInput(attrs={'placeholder': '998971234567'}), label=False)
+                               widget=forms.TextInput(attrs={'placeholder': '998971234567'}), label=False)
     password = forms.CharField(max_length=50, widget=forms.PasswordInput, required=True,
                                validators=[MinLengthValidator(6)], label=False)
     confirm = forms.CharField(max_length=50, widget=forms.PasswordInput, required=True,
-                               validators=[MinLengthValidator(6)], label=False)
+                              validators=[MinLengthValidator(6)], label=False)
 
     def clean_phone(self):
         if UserModel.objects.filter(phone=self.cleaned_data.get("phone")).exists():
@@ -34,9 +35,20 @@ class RegistrationForm(forms.Form):
 
 
 class ForgotPassword(forms.Form):
-    phone = forms.CharField(max_length=16, label=False,
-                            widget=forms.TextInput(attrs=({"class": "rounded-15", 'placeholder': '998971234567'})),
-                            validators=[PhoneValidator()], required=True)
+    username = forms.CharField(max_length=16, label=False,
+                               widget=forms.TextInput(attrs=({'placeholder': '998971234567',
+                                                              'id': 'phone_number'})),
+                               validators=[PhoneValidator(), PhoneValidatorTest()], required=True)
+    new_password = forms.CharField(max_length=18, widget=forms.PasswordInput(attrs=({'id': 'new_password'})),
+                                   required=True, validators=[MinLengthValidator(6)], label=False)
+    confirm_password = forms.CharField(max_length=18, widget=forms.PasswordInput(attrs=({'id': 'confirm_password'})),
+                                       required=True, validators=[MinLengthValidator(6)], label=False)
+
+    def clean_confirm(self):
+        if self.cleaned_data['new_password'] != self.cleaned_data['confirm_password']:
+            raise ValidationError("Пароли не совпадают!")
+
+        return self.cleaned_data['confirm_password']
 
 
 class GetCodeForm(forms.Form):
