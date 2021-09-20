@@ -58,11 +58,6 @@ class UserRegistration(View):
             data = form.cleaned_data
             del data['confirm']
             if not UserModel.objects.filter(username=data['username']).exists():
-                # user = UserModel(**data)
-                # user.set_password(user.password)
-                # print('*************')
-                # print(user.username)
-                # user.save()
                 messages.success(request, "Вы успешно зарегистрировались.")
                 phone = data['username']
                 send_sms_code(request, phone)
@@ -95,12 +90,16 @@ def code_confirmation(request):
         return redirect("user:sign_up")
 
     code = request.POST.get("code")
-    # if data['phone'] is None or not validate_sms_code(data["phone"], code):
-    #     return False
+    if data['phone'] is None or not validate_sms_code(data["phone"], code):
+        get_code_form = GetCodeForm()
+        return render(request, "users/confirmation.html", {
+            "form": get_code_form,
+            "request.title": "Отправить код",
+            "invalid_code": "Kod xato kiritilidi"
+        })
+
     user = UserModel.objects.create(username=data["phone"], password=make_password(data["password"]))
-    # user.set_password(data["password"])
-    # print(user)
-    # user.save()
+
     if user is not None:
         login(request, user)
         return redirect("shop:home")
@@ -144,7 +143,12 @@ def post_code(request):
 
     print(data['phone'], data)
     if data["phone"] is None or not validate_sms_code(data["phone"], code):
-        return False
+        get_code_form = GetCodeForm()
+        return render(request, "users/confirmation.html", {
+            "form": get_code_form,
+            "request.title": "Отправить код",
+            "invalid_code": "Kod xato kiritilidi"
+        })
 
     user = UserModel.objects.get(username=data["phone"])
     user.set_password(data["new_password"])

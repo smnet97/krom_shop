@@ -9,6 +9,7 @@
                     <div class="form-group">
                         <label for="validationCustom01" class="text-02">Код подтверждения</label>
                         {{ form.code|as_crispy_field }}
+                        <span style="color: #ff0000">{{ invalid_code }}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <button type="submit"

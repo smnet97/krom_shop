@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
-from user.models import UserModel
+from user.models import UserModel, SmsCode
 from krom.validators import PhoneValidator
 from krom.validators2 import PhoneValidatorTest
 
@@ -53,5 +53,7 @@ class ForgotPassword(forms.Form):
 
 class GetCodeForm(forms.Form):
     code = forms.IntegerField(max_value=6, label=False,
-                              widget=forms.TextInput(attrs=({"class": "rounded-15", 'placeholder': 'Введите код',
+                              widget=forms.TextInput(attrs=({"class": "rounded-15", 'style': 'margin: 0;', 'placeholder': 'Введите код',
                                                              'id': "code"})), required=True)
+
+

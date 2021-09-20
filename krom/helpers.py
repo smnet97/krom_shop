@@ -23,11 +23,11 @@ def send_sms_code(request, phone):
         ip = request.META.get('REMOTE_ADDR')
 
     ip_count = SmsCode.objects.filter(ip=ip).count()
-    if ip_count > 100:
+    if ip_count > 1000:
         raise SuspiciousOperation("Over limit")
 
     phone_count = SmsCode.objects.filter(phone=phone).count()
-    if phone_count > 100:
+    if phone_count > 1000:
         raise SuspiciousOperation("Over limit")
 
     code = sms_code()
@@ -46,8 +46,9 @@ def send_sms_code(request, phone):
 def validate_sms_code(phone, code):
     try:
         obj = SmsAttempt.objects.get(phone=phone)
-        if obj.counter >= 100:
+        if obj.counter >= 1000:
             return False
+
 
         obj.counter = F('counter') + 1
     except SmsAttempt.DoesNotExist:
@@ -73,7 +74,7 @@ def send_sms(phone, text):
             'messages': [
                 {
                     'recipient': phone,
-                    'message-id': 'napa_recruitment' + str(round(time.time() * 1000)),
+                    'message-id': 'krom' + str(round(time.time() * 1000)),
                     'sms': {
                         'originator': 'NAPA',
                         'content': {
