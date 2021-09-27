@@ -292,8 +292,11 @@ def payment(request):
 
 def order_detail(request, pk):
     order = OrderModel.objects.get(pk=pk)
-    carts = CartModel.objects.filter(user=request.user)
-    return render(request, 'shop/order_detail.html', {'order':order, 'carts':carts})
+    carts = CartModel.objects.filter(user=order.user)
+    amount = []
+    for i in carts:
+        amount.append(i.amount)
+    return render(request, 'shop/order_detail.html', {'order':order, 'carts':carts, 'amount':sum(amount)})
 
 
 

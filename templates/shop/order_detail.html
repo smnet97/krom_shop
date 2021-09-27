@@ -41,13 +41,45 @@
 
                 <div class="d-flex justify-content-start mt-3">
                     <p>Номер заказа: </p>
-                    <p class="ml-auto">{{order.order_   number}}</p>
+                    <p class="ml-auto">{{order.order_number}}</p>
                 </div>
                 <hr class="my-0">
 
                 <div class="d-flex justify-content-start mt-3">
                     <p>Количество товаров: </p>
-                    <p class="ml-auto">{{}}</p>
+                    <p class="ml-auto">{{amount}}</p>
+                </div>
+                <hr class="my-0">
+
+                <div class="d-flex justify-content-start mt-3">
+                    <p>Итоговый сумма : </p>
+                    <p class="ml-auto">{{order.amount}}</p>
+                </div>
+                <hr class="my-0">
+
+                <div class="d-flex justify-content-start mt-3">
+                    <p>Способ оплаты:</p>
+                    <p class="ml-auto">{% if order.payment_type == 1 %}Оплата при доставке{% elif order.payment_type == 2 %}Кредитная карта{% endif %}</p>
+                </div>
+                <hr class="my-0">
+
+                <div class="d-flex justify-content-start mt-3">
+                    <p>Статус платежа:</p>
+                    <p class="ml-auto">{% if order.payment_status == 1 %}В ожидании{% elif order.payment_status == 3 %}Оплачен{% endif %}</p>
+                </div>
+                <hr class="my-0">
+
+                <div class="d-flex justify-content-start mt-3">
+                    <p>О состоянии доставки:</p>
+                    <p class="ml-auto">{% if order.delivery_status == 1 %}В ожидании{% elif order.delivery_status == 3 %}Доставлен{% endif %}</p>
+                </div>
+                <hr class="my-0">
+
+                <div class="d-flex justify-content-start mt-3">
+                    {% if order.payment_status == 1 %}
+                    <a href="{% url 'shop:payment-check' %}" class="btn btn-outline-secondary w-100">Payment</a>
+                    {% endif %}
+                    <a href="{% url 'user:dashboard' %}" class="ml-auto btn btn-outline-secondary w-100">Все заказы </a>
                 </div>
                 <hr class="my-0">
             </div>
