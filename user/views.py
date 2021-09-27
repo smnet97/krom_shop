@@ -5,7 +5,7 @@ from django.views import View
 from django.views.decorators.http import require_POST
 
 from .models import UserModel
-from .forms import LoginForm, RegistrationForm, GetCodeForm
+from .forms import LoginForm, RegistrationForm, GetCodeForm, ForgotPassword
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from krom.helpers import send_sms_code, validate_sms_code
@@ -79,11 +79,6 @@ class UserRegistration(View):
             data = form.cleaned_data
             del data['confirm']
             if not UserModel.objects.filter(username=data['username']).exists():
-                # user = UserModel(**data)
-                # user.set_password(user.password)
-                # print('*************')
-                # print(user.username)
-                # user.save()
                 messages.success(request, "Вы успешно зарегистрировались.")
                 phone = data['username']
                 send_sms_code(request, phone)
@@ -117,8 +112,15 @@ def code_confirmation(request):
 
     code = request.POST.get("code")
     if data['phone'] is None or not validate_sms_code(data["phone"], code):
-        return False
+        get_code_form = GetCodeForm()
+        return render(request, "users/confirmation.html", {
+            "form": get_code_form,
+            "request.title": "Отправить код",
+            "invalid_code": "Kod xato kiritilidi"
+        })
+
     user = UserModel.objects.create(username=data["phone"], password=make_password(data["password"]))
+
     if user is not None:
         login(request, user)
         
@@ -151,6 +153,7 @@ def dashboard(request):
         return render(request, 'users/dashboard.html', {'orders':user_orders})
     
 
+
 # Confirm that goods are delivered
 def confirm_delivery(request, pk):
     confirmed_order = OrderModel.objects.get(pk=pk)
@@ -159,7 +162,60 @@ def confirm_delivery(request, pk):
     return redirect('user:dashboard')
 
 
+
 def delete_order_item(request, pk):
     order = OrderModel.objects.get(pk=pk)
     order.delete()
     return redirect('user:dashboard')
+
+
+
+def forgot_password(request):
+    request.title = "Забыли пароль"
+    form = ForgotPassword()
+    if request.method == "POST":
+        form = ForgotPassword(request.POST)
+        if form.is_valid() and request.method == "POST":
+            phone = form.cleaned_data["username"]
+            password = form.cleaned_data["new_password"]
+            if UserModel.objects.filter(username=phone).exists():
+                send_sms_code(request, phone)
+                request.session["recovery"] = {
+                    "phone": phone,
+                    "new_password": password
+                }
+                get_code_form = GetCodeForm()
+                return render(request, "users/get_code.html", {
+                    "form": get_code_form,
+                    "request.title": "Отправить код"
+                })
+    return render(request, "users/forgot_password.html", {
+        'form': form,
+    })
+
+
+@require_POST
+def post_code(request):
+    # request.title = "Отправить код"
+
+    data = request.session.get("recovery")
+    if request.method != "POST" or data["phone"] is None:
+        return redirect('forgot_password')
+
+    code = request.POST.get("code")
+
+    print(data['phone'], data)
+    if data["phone"] is None or not validate_sms_code(data["phone"], code):
+        get_code_form = GetCodeForm()
+        return render(request, "users/confirmation.html", {
+            "form": get_code_form,
+            "request.title": "Отправить код",
+            "invalid_code": "Kod xato kiritilidi"
+        })
+
+    user = UserModel.objects.get(username=data["phone"])
+    user.set_password(data["new_password"])
+    user.save()
+
+    return redirect("user:login")
+
