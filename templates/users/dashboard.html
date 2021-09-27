@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+    <div class="row pt-3">
+        <div class="container">
+            <div class="col-md-12" >
+                <h5 class="text-center">Order history {% if user.is_superuser %}(Admin){% else %}({{user.shippingaddressmodel.first_name}}){% endif %}</h5>
+                
+                <table class="table table-striped ">
+                    <thead>
+                      <tr>
+                        <th scope="col">Order_Id</th>
+                        <th scope="col">Покупатель</th>
+                        <th scope="col">Сумма</th>
+                        <th scope="col">Время заказа </th>
+                        <th scope="col">Статус платежа</th>
+                        <th scope="col">Статус доставки</th>
+
+                        {% if request.user.is_staff %}
+                        <th scope="col">Подвердить</th>
+                        {% endif %}
+                        <th scope="col">Опции </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                      <tr>
+                        <td><a href="{{order.get_absolute_url}}">{{order.id}}</a></td>
+                        <td>{{order.user.username}}</td>
+                        <td>{{order.amount}} сум</td>
+                        <td>{{order.created_at|naturaltime}}</td>
+                        <td>{% if order.payment_status == 1 %}В ожидании {% elif order.payment_status == 3 %}Оплачен{% endif %}</td>
+                        <td>{% if order.delivery_status == 1 %} В ожидании {% elif order.delivery_status == 3 %} Доставлен {% endif %}</td>
+
+                        {% if request.user.is_staff %}
+                          {% if order.delivery_status == 3 %}
+                            <td class="text-start"><img src="{% static 'shop/img/checked_icon.png' %}" alt="checked icon"></td>
+                          {% elif order.delivery_status == 1 and order.payment_status == 3 %}
+                            <td class="text-start"><a href="{% url 'user:confirm-delivery' order.id %}" class="btn btn-danger" style="font-size: 14px;">Подвердить доставку</a></td>
+                          {% else %}  
+                            <td>В ожидании</td>
+                          {% endif %}
+                        {% endif %}
+
+                        <td><a href="{% url 'user:delete-order-item' order.id %}"><img src="{% static 'shop/img/trash_icon1.png' %}" alt=""></a></td>
+
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
+{% endif %}
+
+{% if request.session.favorites %}
+
+    <div class="shop">
+
+        <section class="products mt-5 pt-5">
+
+            <div class="container row row-cols-{{ cotegory|length }} mx-auto">
+                <a class="ml-auto btn btn-outline-secondary mr-2" href="{% url 'shop:clean-favorites' %}">Очистить </a>
+
+                <div class="row mx-auto  w-100">
+                    {% for prod in request.session.favorites %}
+                        <div class="col-lg-3 mt-3 {{ prod.product.category.slug }}">
+                            <div class="card product text-center h-100">
+                                <img src="{{ prod.product.image }}" class="card-img-top img-fluid" alt="{{ prod.name }}">
+                                <div class="card-body">
+                                    <a href=""
+                                       style="color: black; text-decoration: none;"
+                                       class="card-text h5">{{ prod.product.name|truncatewords:'4' }}
+                                        <h5><b style="color: rgb(197, 99, 99);">{{ prod.product.price }} сумм</b></h5>
+                                    </a>
+                                </div>
+
+                                <div class=" d-none hover justify-content-center pr-2 flex-column position-absolute"
+                                     style="right: 0px;
+                         height: 100%;">
+
+                                        <a class="" href="{% url 'shop:delete-favorite-item' prod.product.id %}" style="text-decoration: none; color: black">
+                                            {% if prod.product.in_stock > 0 %}
+                                            <img src="{% static 'shop/img/trash_icon.png' %}" class="pt-3 cartt"
+                                                style="width: 25px; "
+                                                alt="" srcset="">
+                                            {% endif %}
+                                        </a>
+
+                                        <a class="aaa carts" href="{% url 'shop:add-to-cart' prod.product.id %}" style="text-decoration: none; color: black">
+                                            {% if prod.product.in_stock > 0 %}
+                                            <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cartt"
+                                                 style="width: 25px; "
+                                                 alt="" srcset="">
+                                            <img src="{% static 'shop/img/carted.png' %}" style="width: 25px" class="pt-3 d-none carttt">
+                                            {% endif %}
+                                        </a>
+                                          
+
+                                    <!-- Button trigger modal -->
+
+                                    <button type="button" class="btn pt-3 bg-transparent p-0" data-toggle="modal"
+                                            data-target="#exampleModal{{ prod.product.id }}">
+                                        <img src="{% static 'shop/img/full_half.png' %}" class="img-fluid"
+                                             style="width: 25px;"
+                                             alt="" srcset="">
+                                    </button>
+
+
+                                </div>
+
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade  " id="exampleModal{{ prod.product.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel{{ prod.product.id }}"
+                                 aria-hidden="true">
+                                <div class="modal-dialog mx-auto position-absolute p-4"
+                                     style="width: 70vw;  left: 15%; top: 10% ">
+                                    <div class="modal-content mx-auto " style="width: 75vw; border-radius: 10px">
+                                        <div class="modal-header mx-auto " style="width: 100%; border: none">
+                                            <h5 class="modal-title" id="exampleModalLabel{{ prod.product.id }}"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="row p-3">
+                                            <div class="col-lg-6">
+                                                <img class="img-fluid" src="{{ prod.product.image }}" alt="image">
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-column">
+                                                <h3><b>{{ prod.product.name }}</b></h3>
+                                                <h4 style=" color: rgb(197, 99, 99)">{{ prod.product.price }} сумм</h4>
+                                                {% if prod.product.in_stock > 0 %}
+                                                    <h6 style="color: green"> В наличии</h6>
+                                                {% else %}
+                                                    <h6 style="color: red">Нет наличии</h6>
+                                                {% endif %}
+
+
+                                                <h6 style="">Категория: {{ prod.product.category.name }}</h6>
+                                                <p style="color: silver">Описание </p>
+                                                <h6>{{ prod.product.dsecription }}</h6>
+                                                <br>
+
+                                                <div class="d-flex align-items-center">
+
+                                                    <a class="aaa carts" href="{% url 'shop:add-to-cart' prod.product.id %}" style="text-decoration: none; color: black">
+                                                        <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                                             alt=""><span> в карзину </span>
+                                                            <img src="{% static 'shop/img/cart.png' %}"
+                                                                 class=" cartt"
+                                                                 style="width: 25px; "
+                                                                 alt="" srcset="">
+                                                            <img src="{% static 'shop/img/carted.png' %}"
+                                                                 style="width: 25px; "
+                                                                 class=" d-none carttt">
+
+                                                    </a>
+                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                    {% endfor %}
+                    <style>
+                        {% for category in categories %}
+
+                            input[type="radio"][id="{{ category.slug }}"]:checked ~ .row .col-lg-3:not(.{{ category.slug }}) {
+                                display: none;
+                            }
+                        {% endfor %}
+                    </style>
+
+
+                </div>
+            </div>
+
+        </section>
+
+
+    </div>
+                        
+    {% elif favorites %}
+    <div class="shop">
+
+        <section class="products mt-5 pt-5">
+
+            <div class="container row row-cols-{{ cotegory|length }} mx-auto">
+
+                <div class="row mx-auto  w-100">
+                    {% for prod in favorites %}
+                        <div class="col-lg-3 mt-3 {{ prod.product.category.slug }}">
+                            <div class="card product text-center h-100">
+                                <img src="{{ prod.product.image.url }}" class="card-img-top img-fluid" alt="{{ prod.name }}">
+                                <div class="card-body">
+                                    <a href=""
+                                       style="color: black; text-decoration: none;"
+                                       class="card-text h5">{{ prod.product.name|truncatewords:'4' }}
+                                        <h5><b style="color: rgb(197, 99, 99);">{{ prod.product.price }} сумм</b></h5>
+                                    </a>
+                                </div>
+
+                                <div class=" d-none hover justify-content-center pr-2 flex-column position-absolute"
+                                     style="right: 0px;
+                         height: 100%;">
+
+                                        <a class="" href="{% url 'shop:delete-favorite-item' prod.id %}" style="text-decoration: none; color: black">
+                                            {% if prod.product.in_stock > 0 %}
+                                            <img src="{% static 'shop/img/trash_icon.png' %}" class="pt-3 cartt"
+                                                style="width: 25px; "
+                                                alt="" srcset="">
+                                            {% endif %}
+                                        </a>
+
+                                        <a class="aaa carts" href="{% url 'shop:add-to-cart' prod.product.id %}" style="text-decoration: none; color: black">
+                                            {% if prod.product.in_stock > 0 %}
+                                            <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cartt"
+                                                 style="width: 25px; "
+                                                 alt="" srcset="">
+                                            <img src="{% static 'shop/img/carted.png' %}" style="width: 25px" class="pt-3 d-none carttt">
+                                            {% endif %}
+                                        </a>
+                                          
+
+                                    <!-- Button trigger modal -->
+
+                                    <button type="button" class="btn pt-3 bg-transparent p-0" data-toggle="modal"
+                                            data-target="#exampleModal{{ prod.product.id }}">
+                                        <img src="{% static 'shop/img/full_half.png' %}" class="img-fluid"
+                                             style="width: 25px;"
+                                             alt="" srcset="">
+                                    </button>
+
+
+                                </div>
+
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade  " id="exampleModal{{ prod.product.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel{{ prod.product.id }}"
+                                 aria-hidden="true">
+                                <div class="modal-dialog mx-auto position-absolute p-4"
+                                     style="width: 70vw;  left: 15%; top: 10% ">
+                                    <div class="modal-content mx-auto " style="width: 75vw; border-radius: 10px">
+                                        <div class="modal-header mx-auto " style="width: 100%; border: none">
+                                            <h5 class="modal-title" id="exampleModalLabel{{ prod.product.id }}"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="row p-3">
+                                            <div class="col-lg-6">
+                                                <img class="img-fluid" src="{{ prod.product.image.url }}" alt="image">
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-column">
+                                                <h3><b>{{ prod.product.name }}</b></h3>
+                                                <h4 style=" color: rgb(197, 99, 99)">{{ prod.product.price }} сумм</h4>
+                                                {% if prod.product.in_stock > 0 %}
+                                                    <h6 style="color: green"> В наличии</h6>
+                                                {% else %}
+                                                    <h6 style="color: red">Нет наличии</h6>
+                                                {% endif %}
+
+
+                                                <h6 style="">Категория: {{ prod.product.category.name }}</h6>
+                                                <p style="color: silver">Описание </p>
+                                                <h6>{{ prod.product.dsecription }}</h6>
+                                                <br>
+
+                                                <div class="d-flex align-items-center">
+
+                                                    <a class="aaa carts" href="{% url 'shop:add-to-cart' prod.product.id %}" style="text-decoration: none; color: black">
+                                                        <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                                             alt=""><span> в карзину </span>
+                                                            <img src="{% static 'shop/img/cart.png' %}"
+                                                                 class=" cartt"
+                                                                 style="width: 25px; "
+                                                                 alt="" srcset="">
+                                                            <img src="{% static 'shop/img/carted.png' %}"
+                                                                 style="width: 25px; "
+                                                                 class=" d-none carttt">
+
+                                                    </a>
+                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+                    <style>
+                        {% for category in categories %}
+
+                            input[type="radio"][id="{{ category.slug }}"]:checked ~ .row .col-lg-3:not(.{{ category.slug }}) {
+                                display: none;
+                            }
+                        {% endfor %}
+                    </style>
+
+
+                </div>
+            </div>
+
+        </section>
+
+
+    </div>
+    {% else %}
+    
+                        Ваш список желаний пуст
+    {% endif %}
+
+{% endblock content %}
+

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
     <div class="shop">
@@ -35,19 +36,21 @@
                          height: 100%;">
 
                                         <a class="aaa carts" href="{% url 'shop:add-to-cart' prod.id %}" style="text-decoration: none; color: black">
+                                            {% if prod.in_stock > 0 %}
                                             <img src="{% static 'shop/img/cart.png' %}" class="pt-3 cartt"
                                                  style="width: 25px; "
                                                  alt="" srcset="">
                                             <img src="{% static 'shop/img/carted.png' %}" style="width: 25px" class="pt-3 d-none carttt">
+                                            {% endif %}
                                         </a>
 
-                                    <div href="" class="likes">
+                                    <a href="{% url 'shop:favorites' prod.id%}" class="likes">
                                         <img src="{% static 'shop/img/like.png' %}" class="pt-3 like"
                                              style="width: 25px;  "
                                              alt="" srcset="">
                                         <img src="{% static 'shop/img/liked.png' %}" class="pt-3 d-none like"
                                              style="width: 25px;  " alt="" srcset="">
-                                    </div>
+                                    </a>
 
 
                                     <!-- Button trigger modal -->
@@ -110,7 +113,7 @@
 
                                                     </a>
                                                     <div href="" class="likes pl-5">
-                                                        <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
+                                                            <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
                                                              alt=""><span> в избранное </span>
                                                         <img src="{% static 'shop/img/like.png' %}" class=" like"
                                                              style="width: 25px;  "

@@ -1,3 +1,4 @@
+from shop.models import CartModel, FavoritesModel, OrderModel, ProductModel
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
@@ -9,6 +10,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from krom.helpers import send_sms_code, validate_sms_code
 from django.contrib.auth.hashers import make_password
+
+import json
+import ast
+from collections import OrderedDict
 
 
 def user_login(request):
@@ -23,6 +28,22 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Добро пожаловать !!!  {}".format(user.username))
+                if request.session.get('cart'):
+                    for i in request.session['cart']:
+                        product = ProductModel.objects.get(id=i['product']['id'])
+                        check = CartModel.objects.filter(user=user, product=product)
+                        if not check:
+                            CartModel.objects.create(user=user, product=product, amount=i['amount'])
+                    del request.session['cart']
+                    del request.session['total']
+                    del request.session['total_sum']
+                if request.session.get('favorites'):
+                    for i in request.session['favorites']:
+                        product = ProductModel.objects.get(id=i['product']['id'])
+                        check = FavoritesModel.objects.filter(user=user, product=product)
+                        if not check:
+                            FavoritesModel.objects.create(user=user, product=product)
+                    del request.session['favorites']
                 return redirect('shop:home')
 
             form.add_error('password', "Номер телефона или пароль неверны !")
@@ -98,11 +119,47 @@ def code_confirmation(request):
     if data['phone'] is None or not validate_sms_code(data["phone"], code):
         return False
     user = UserModel.objects.create(username=data["phone"], password=make_password(data["password"]))
-    # user.set_password(data["password"])
-    # print(user)
-    # user.save()
     if user is not None:
         login(request, user)
-        return redirect("shop:home")
+        
+        if request.session.get('cart'):
+            for i in request.session['cart']:
+                product = ProductModel.objects.get(id=i['product']['id'])
+                check = CartModel.objects.filter(user=user, product=product)
+                if not check:
+                    CartModel.objects.create(user=user, product=product, amount=i['amount'])
+            del request.session['cart']
+            del request.session['total']
+            del request.session['total_sum']
+        if request.session.get('favorites'):
+            for i in request.session['favorites']:
+                product = ProductModel.objects.get(id=i['product']['id'])
+                check = FavoritesModel.objects.filter(user=user, product=product)
+                if not check:
+                    FavoritesModel.objects.create(user=user, product=product)
+            del request.session['favorites']
 
     return redirect("user:sign_up")
+
+
+def dashboard(request):
+    if request.user.is_staff:
+        all_orders = OrderModel.objects.order_by('created_at')
+        return render(request, 'users/dashboard.html', {'orders':all_orders})
+    else: 
+        user_orders = OrderModel.objects.filter(user=request.user)
+        return render(request, 'users/dashboard.html', {'orders':user_orders})
+    
+
+# Confirm that goods are delivered
+def confirm_delivery(request, pk):
+    confirmed_order = OrderModel.objects.get(pk=pk)
+    confirmed_order.delivery_status = 3
+    confirmed_order.save()
+    return redirect('user:dashboard')
+
+
+def delete_order_item(request, pk):
+    order = OrderModel.objects.get(pk=pk)
+    order.delete()
+    return redirect('user:dashboard')

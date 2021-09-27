@@ -3,8 +3,9 @@
 {% load static %}
 
 {% block content %}
-    <div class="cart">
 
+    {% if request.session.cart %}
+    <div class="cart">
         <div class="container ">
             <div class="row">
                 <div class="col-8">
@@ -23,6 +24,116 @@
                         </div>
                         <br>
                     </div>
+                    
+
+                    {% for cart in request.session.cart %}
+                        <div class="row pt-5">
+                            <div class="col-5 ">
+                                <div class="row">
+                                    <a href="{% url 'shop:detail' cart.product.id %}" class="col-4">
+                                        <img src="{{ cart.product.image }}" class="img-fluid" alt="">
+                                    </a>
+                                    <a href="{% url 'shop:detail' cart.product.id %}"
+                                       style="text-decoration: none; color: black;"
+                                       class="col-8 d-flex flex-column justify-content-center">
+                                        <h5>{{ cart.product.name }}</h5>
+                                        <span>{{ cart.product.category.name }}</span>
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+                            <div class="col-2 d-flex flex-column justify-content-center">
+                                <h6>{{ cart.product.price }}</h6>
+                            </div>
+
+                            <div class="col-2 d-flex flex-column justify-content-center">
+
+                                <form class="change_amount_form" action="{% url 'shop:change-product-amount' cart.product.id %}"
+                                      method="get">
+                                    <input type="number" data-id={{ cart.id }} id="{{ cart.product.category.slug }}{{ cart.product.id }}"
+                                           class="form-control text-center change_amount " value="{{ cart.amount }}"
+                                           name="cart_amount"
+                                           min="1" max="{{ cart.product.in_stock }}"
+                                           style="width: 70px">
+                                </form>
+                            </div>
+                            <div class="col-2 d-flex flex-column justify-content-center">
+                                <h6>
+                                    <input type="text" id="{{ cart.product.category.slug }}total{{ cart.product.id }}"
+                                           disabled style="border: none; background: none;"
+                                           value="{{ cart.get_total_price }}">
+
+                                </h6>
+                            </div>
+                            <div class="col-1 p-0 d-flex flex-column justify-content-center">
+                                <a href="{% url 'shop:delete-cart-item' cart.product.id %}" class="btn bg-danger"><img
+                                        src="{% static 'shop/img/trash.png' %}"
+                                        alt="Delete" style="width: 25px"></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                </div>
+
+             
+
+                <div class="col-4 ">
+                    <div class="sticky-top">
+                        <div class="check  w-100" style="border: 1px solid silver">
+                            <h5 class="px-4 pt-3 text-center">Итоги заказа</h5>
+                            <hr>
+                            <div class="d-flex px-4 py-3 justify-content-between">
+                                <span>Промежуточный итог</span>
+                                <span>{{request.session.total}} сум</span>
+                            </div>
+                            <div class="d-flex px-4 py-3 justify-content-between">
+                                <span>Доставка </span>
+                                <span>{{request.session.delivery}} сум</span>
+                            </div>
+
+                            <hr class="mb-0">
+                            <div class="d-flex px-4 py-3 justify-content-between" style="">
+                                <span>Всего</span>
+                                <span>{{request.session.total_sum}} сум</span>
+                            </div>
+                        </div>
+                        <a href="{% url 'shop:checkout' %}"
+                           style=" margin-top: 10px; background: #4F944F; color: #ffffff; border: 1px solid #0b2e13"
+                           class="py-2 w-100 btn">Оформить заказ</a>
+
+                        <a href="{% url 'shop:shop' %}" class="py-2 px-3 btn mb-auto w-100 ">Продолжить покупки</a>
+                        <a href="{% url 'shop:clean-cart' %}" class="px-3 btn w-100">Очистить карзину</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    {% else %}
+
+    <div class="cart">
+        <div class="container ">
+            <div class="row">
+                <div class="col-8">
+                    <div class="row ">
+                        <div class="col-5">
+                            <h5>Продукт</h5>
+                        </div>
+                        <div class="col-2">
+                            <h6>Цена</h6>
+                        </div>
+                        <div class="col-2">
+                            <h6>Количество</h6>
+                        </div>
+                        <div class="col-2">
+                            <h6>Всего</h6>
+                        </div>
+                        <br>
+                    </div>
+                    
 
                     {% for cart in carts %}
                         <div class="row pt-5">
@@ -73,6 +184,9 @@
                         </div>
                     {% endfor %}
                 </div>
+
+             
+
                 <div class="col-4 ">
                     <div class="sticky-top">
                         <div class="check  w-100 " style=";border: 1px solid silver">
@@ -97,17 +211,18 @@
                            style=" margin-top: 10px; background: #4F944F; color: #ffffff; border: 1px solid #0b2e13"
                            class="py-2 w-100 btn">Оформить заказ</a>
 
-                        <a href="{% url 'shop:shop' %}" class="py-2 px-3 btn mb-auto w-100 ">Продолжить покупки</a>
-                        <button class="px-3 btn w-100">Очистить карзину</button>
+                        <a href="{% url 'shop:shop' %}" class="py-2 px-3 btn btn-outline-secondary mt-1 mb-auto w-100 ">Продолжить покупки</a>
+                        <a href="{% url 'shop:clean-cart' %}" class="px-3 btn btn-secondary w-100 mt-1">Очистить карзину</a>
                     </div>
                 </div>
             </div>
 
-
         </div>
 
-
     </div>
+
+    {% endif %}
+    
 
 {% endblock content %}
 

@@ -24,39 +24,58 @@
                                             <!-- Name -->
                                             <label for="checkout_name">Имя*</label>
                                             <input type="text" id="checkout_name" class="checkout_input"
-                                                   name="first_name" required="required">
+                                                   name="first_name" required="required"
+                                                    {% if request.user.shippingaddressmodel.first_name %}
+                                                        value="{{request.user.shippingaddressmodel.first_name}}"
+                                                    {% endif %}>
                                         </div>
                                         <div class="col-xl-6 last_name_col">
                                             <!-- Last Name -->
                                             <label for="checkout_last_name">Фамилия*</label>
                                             <input type="text" id="checkout_last_name" class="checkout_input"
-                                                   name="last_name" required="required">
+                                                   name="last_name" required="required"
+                                                    {% if request.user.shippingaddressmodel.last_name %}
+                                                        value="{{request.user.shippingaddressmodel.last_name}}"
+                                                    {% endif %}>
                                         </div>
                                     </div>
                                     <div>
                                         <!-- Phone no -->
                                         <label for="checkout_phone">Номер телефона*</label>
                                         <input type="phone" id="checkout_phone" class="checkout_input"
-                                               name="phone" required="required">
+                                                name="phone" required="required"
+                                                {% if request.user.shippingaddressmodel.phone %}
+                                                    value="{{request.user.shippingaddressmodel.phone}}"
+                                                {% endif %}>
                                     </div>
                                     <div>
                                         <!-- Company -->
                                         <label for="checkout_company">Компания</label>
-                                        <input type="text" id="checkout_company" class="checkout_input" name="company">
+                                        <input type="text" id="checkout_company" class="checkout_input" name="company"
+                                            {% if request.user.shippingaddressmodel.company %}
+                                                value="{{request.user.shippingaddressmodel.company}}"
+                                            {% endif %}>
                                     </div>
 
                                     <div>
                                         <!-- Address1 required -->
                                         <label for="checkout_address">Адрес*</label>
                                         <input type="text" id="checkout_address" class="checkout_input"
-                                               name="address1" required="required">
+                                               name="address1" required="required"
+                                               {% if request.user.shippingaddressmodel.address1 %}
+                                                    value="{{request.user.shippingaddressmodel.address1}}"
+                                                {% endif %}>
+                                               
 
                                     </div>
                                     <div>
                                         <!-- Address optional-->
                                         <label for="checkout_company">Адрес 2</label>
                                         <input type="text" id="checkout_address_2"
-                                              name="address2" class="checkout_input">
+                                              name="address2" class="checkout_input"
+                                                {% if request.user.shippingaddressmodel.address2 %}
+                                                    value="{{request.user.shippingaddressmodel.address2}}"
+                                                {% endif %}>
                                     </div>
 
                                     <div>
@@ -64,7 +83,10 @@
                                         <label for="checkout_city">Город*</label>
                                         <select name="checkout_city" id="checkout_city"
                                                 class="dropdown_item_select checkout_input" require="required">
-                                            <option></option>
+                                            <option>{% if request.user.shippingaddressmodel.city %}
+                                                        {{request.user.shippingaddressmodel.city}}
+                                                    {% endif %}
+                                            </option>
                                             <option>Ташкент</option>
                                             <option>Алмалык</option>
                                             <option>Ангрен</option>
@@ -80,7 +102,11 @@
                                         <label for="checkout_province">Район*</label>
                                         <select name="checkout_province" id="checkout_province"
                                                 class="dropdown_item_select checkout_input" require="required">
-                                            <option></option>
+                                            <option>
+                                                {% if request.user.shippingaddressmodel.region %}
+                                                    {{request.user.shippingaddressmodel.region}}
+                                                {% endif %}
+                                            </option>
                                             <option>Сергелийский</option>
                                             <option>Мирзо-Улугбекский</option>
                                             <option>Мирабадский</option>
@@ -99,7 +125,10 @@
                                         <!-- Email -->
                                         <label for="checkout_email">Адрес электронной почты*</label>
                                         <input type="email" id="checkout_email" class="checkout_input"
-                                               name="email" required="required">
+                                               name="email" required="required"
+                                                {% if request.user.shippingaddressmodel.email %}
+                                                    value="{{request.user.shippingaddressmodel.email}}"
+                                                {% endif %}>
                                     </div>
                                     <div class="checkout_extra">
                                         <div>

@@ -33,9 +33,9 @@ class ProductModel(models.Model):
     dsecription = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='product_images', null=True, blank=True)
     price = models.IntegerField( null=True, blank=True)
-    sale = models.BooleanField(default=False, null=True, blank=True)
-    liked = models.BooleanField(default=False, blank=True, null=True)
-    in_stock = models.IntegerField(default=0, null=True, blank=True)
+    sale = models.BooleanField(default=False)
+    liked = models.BooleanField(default=False)
+    in_stock = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -50,8 +50,8 @@ class ProductModel(models.Model):
 
 
 class CartModel(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    product = models.OneToOneField(ProductModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
     amount = models.IntegerField(default=1)
 
     def __str__(self):
@@ -64,6 +64,19 @@ class CartModel(models.Model):
     class Meta:
         verbose_name = 'Cart'
         verbose_name_plural = 'Cart List'
+
+
+class FavoritesModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.product.name
+
+
+    class Meta:
+        verbose_name = 'Favorite product'
+        verbose_name_plural = 'Favorite Products'
 
 
 class ShippingAddressModel(models.Model):
@@ -122,6 +135,7 @@ DELIVERY_STATUS = (
 
 class OrderModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order_number = models.BigIntegerField(default=0)
     amount = models.IntegerField(null=True)
     phone = models.CharField(max_length=13)
     email = models.EmailField()
@@ -136,6 +150,9 @@ class OrderModel(models.Model):
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
+
+    def get_absolute_url(self):
+        return reverse_lazy('shop:order-detail', kwargs={'pk': self.pk})
 
 
 @receiver(pre_save, sender=CategoryModel)

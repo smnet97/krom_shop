@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container pt-5">
+        <h3>Подробная информация  о заказе </h3>
+        <div class="row">
+            <div class="col-md-8">
+                {% for cart in carts %}
+                <div class="row pt-5 align-items-center">
+                        <div class="col-md-3">
+                            <p>{{cart.product.name}}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="{{cart.product.image.url}}" style="width: 100px;" alt="image">
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{cart.amount}} шт</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{cart.product.price}} сум</p>
+                        </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
