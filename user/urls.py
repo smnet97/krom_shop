@@ -1,5 +1,5 @@
 from django.urls import path
-from user.views import user_login, user_logout, UserRegistration, code_confirmation, dashboard, confirm_delivery, delete_order_item
+from user.views import user_login, user_logout, UserRegistration, code_confirmation, dashboard, confirm_delivery, delete_order_item, forgot_password, post_code
 
 
 app_name = "user"

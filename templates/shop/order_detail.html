@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% load static %}
 
 {% block content %}
@@ -26,6 +27,29 @@
             </div>
             <div class="col-md-4">
 
+                <div class="d-flex justify-content-start mt-3">
+                    <p>Покупатель: </p>
+                    <p class="ml-auto">{{order.user.shippingaddressmodel.last_name}} {{order.user.shippingaddressmodel.first_name}}</p>
+                </div>
+                <hr class="my-0">
+
+                <div class="d-flex justify-content-start mt-3">
+                    <p>Время заказа: </p>
+                    <p class="ml-auto">{{order.created_at|naturaltime}}</p>
+                </div>
+                <hr class="my-0">
+
+                <div class="d-flex justify-content-start mt-3">
+                    <p>Номер заказа: </p>
+                    <p class="ml-auto">{{order.order_   number}}</p>
+                </div>
+                <hr class="my-0">
+
+                <div class="d-flex justify-content-start mt-3">
+                    <p>Количество товаров: </p>
+                    <p class="ml-auto">{{}}</p>
+                </div>
+                <hr class="my-0">
             </div>
         </div>
     </div>
