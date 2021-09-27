@@ -39,16 +39,14 @@
                                  class=" d-none carttt">
 
                         </a>
-                        <div href="" class="likes pl-5">
+                        <a href="{% url 'shop:favorites' prod.id %}" class="likes pl-5">
                             <img src="{% static 'shop/img/plus.png' %}" style="width: 15px"
                                  alt=""><span> в избранное </span>
                             <img src="{% static 'shop/img/like.png' %}" class=" like"
                                  style="width: 25px;  "
                                  alt="" srcset="">
-                            <img src="{% static 'shop/img/liked.png' %}"
-                                 class=" d-none like"
-                                 style="width: 25px;  " alt="" srcset="">
-                        </div>
+                            
+                        </a>
                     </div>
                 </div>
             </div>

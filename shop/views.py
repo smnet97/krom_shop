@@ -16,8 +16,10 @@ def home(request):
 
 
 
-def detail(request):
-    return render(request, 'shop/detail.html')
+def detail(request, pk):
+    product = ProductModel.objects.get(pk=pk)
+    products = ProductModel.objects.filter(category=product.category)
+    return render(request, 'shop/detail.html',  {'prod':product, 'products':products})
 
 
 
