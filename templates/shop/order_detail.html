@@ -76,7 +76,7 @@
                 <hr class="my-0">
 
                 <div class="d-flex justify-content-start mt-3">
-                    {% if order.payment_status == 1 %}
+                    {% if order.payment_status == 1 and order.payment_type == 2 %}
                     <a href="{% url 'shop:payment-check' %}" class="btn btn-outline-secondary w-100">Payment</a>
                     {% endif %}
                     <a href="{% url 'user:dashboard' %}" class="ml-auto btn btn-outline-secondary w-100">Все заказы </a>

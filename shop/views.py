@@ -97,10 +97,8 @@ def checkout(request):
             
             done = OrderModel.objects.create(user=user, amount=total+delivery.delivery, phone=user.username, email=get_email, payment_type=payment_type,
                                             payment_status=1, delivery_status=1)
-            if done.payment_type == 1:
-                return redirect('user:dashboard')
-            elif done.payment_type == 2:
-                return redirect('shop:payment-check')
+            if done:
+                return redirect('shop:order-detail', pk = done.id)
         
         return render(request, 'shop/checkout.html' , {'carts': carts, 'total':total+delivery.delivery})
 
