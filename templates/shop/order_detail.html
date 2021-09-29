@@ -79,7 +79,7 @@
                     {% if order.payment_status == 1 and order.payment_type == 2 %}
                         <form name="apelsin_form" action="https://oplata.kapitalbank.uz" action="GET">
                             <input type="hidden" name="cash" value="c71014829ef640dcb8c96a0437a6ae91">
-                            <input type="hidden" name="redirectUrl" value="https://krom-professional/order_detail/{{order.id}}">
+                            <input type="hidden" name="redirectUrl" value="https://krom-professional.com/order_detail/{{order.id}}">
                             <input type="hidden" name="description" value="Payment for Krom professional">
                             <input type="hidden" name="amount" value="{{ order.get_payme_amount }}">
                             <input type="hidden" name="order_id" value="{{ order.id }}">
