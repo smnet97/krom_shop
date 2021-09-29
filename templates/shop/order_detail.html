@@ -77,7 +77,14 @@
 
                 <div class="d-flex justify-content-start mt-3">
                     {% if order.payment_status == 1 and order.payment_type == 2 %}
-                    <a href="{% url 'shop:payment-check' %}" class="btn btn-outline-secondary w-100">Payment</a>
+                        <form name="apelsin_form" action="https://oplata.kapitalbank.uz" action="GET">
+                            <input type="hidden" name="cash" value="c71014829ef640dcb8c96a0437a6ae91">
+                            <input type="hidden" name="redirectUrl" value="https://krom-professional/order_detail/{{order.id}}">
+                            <input type="hidden" name="description" value="Payment for Krom professional">
+                            <input type="hidden" name="amount" value="{{ order.get_payme_amount }}">
+                            <input type="hidden" name="order_id" value="{{ order.id }}">
+                            <button type="submit" class="btn btn-outline-secondary w-100">Payment</button>
+                        </form>
                     {% endif %}
                     <a href="{% url 'user:dashboard' %}" class="ml-auto btn btn-outline-secondary w-100">Все заказы </a>
                 </div>

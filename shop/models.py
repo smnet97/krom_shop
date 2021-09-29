@@ -154,6 +154,9 @@ class OrderModel(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('shop:order-detail', kwargs={'pk': self.pk})
 
+    def get_payme_amount(self):
+        return self.amount*100
+
 
 @receiver(pre_save, sender=CategoryModel)
 def create_slug_from_name(sender, instance, **kwargs):
